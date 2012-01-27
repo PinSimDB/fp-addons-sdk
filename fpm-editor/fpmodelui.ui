@@ -1,0 +1,1354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FPModelUI</class>
+ <widget class="QWidget" name="FPModelUI">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>867</width>
+    <height>739</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>739</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" colspan="3">
+    <widget class="QGroupBox" name="generalGroupBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>129</height>
+      </size>
+     </property>
+     <property name="title">
+      <string>General Information</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="2">
+       <widget class="QLabel" name="modelNameLabel">
+        <property name="text">
+         <string>Model name</string>
+        </property>
+        <property name="buddy">
+         <cstring>modelNameLineEdit</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3" colspan="3">
+       <widget class="QLineEdit" name="modelNameLineEdit">
+        <property name="maximumSize">
+         <size>
+          <width>192</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLabel" name="modelTypeLabel">
+        <property name="text">
+         <string>Model type</string>
+        </property>
+        <property name="buddy">
+         <cstring>modelTypeComboBox</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QComboBox" name="modelTypeComboBox">
+        <item>
+         <property name="text">
+          <string>Unknown</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Peg</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Flipper</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Bumper Base</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Bumper Cap</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Target</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Drop Target</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Plunger</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Ornament</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Kicker</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Lane Guide</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Rubber</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Trigger</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Flasher</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Bulb</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Gate</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Spinner</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Toy</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Diverter</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>AutoPlunger</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Popup</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>RampModel</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>RampWireEnder</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>SpinningDisk</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>EmKicker</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>TriggerOpto</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QLabel" name="previewLabel">
+        <property name="text">
+         <string>Icon (96x96 bmp)</string>
+        </property>
+        <property name="buddy">
+         <cstring>previewLineEdit</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3" colspan="2">
+       <widget class="QLineEdit" name="previewLineEdit">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="5">
+       <widget class="QToolButton" name="previewOpenToolButton">
+        <property name="toolTip">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Open&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="fpm-editor.qrc">
+          <normaloff>:/icons/open.png</normaloff>:/icons/open.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="6">
+       <widget class="QToolButton" name="previewSaveToolButton">
+        <property name="toolTip">
+         <string>Save</string>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="fpm-editor.qrc">
+          <normaloff>:/icons/save.png</normaloff>:/icons/save.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="8" rowspan="4">
+       <widget class="QWidget" name="previewWidget" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>96</width>
+          <height>96</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>96</width>
+          <height>960</height>
+         </size>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <property name="margin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="previewImage">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="2" column="7">
+       <spacer name="horizontalSpacer_7">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="4">
+       <spacer name="horizontalSpacer_8">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="3" column="2" colspan="6">
+       <spacer name="verticalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="5">
+    <widget class="QGroupBox" name="modelsGroupBox">
+     <property name="title">
+      <string>Models</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0">
+       <widget class="QGroupBox" name="primayModelGroupBox">
+        <property name="title">
+         <string>Main model (ms3D)</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_4">
+         <item row="0" column="0">
+          <widget class="QLabel" name="primaryModelFileNameLabel">
+           <property name="text">
+            <string>File name</string>
+           </property>
+           <property name="buddy">
+            <cstring>primaryModelFileLineEdit</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="primaryModelFileLineEdit">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QToolButton" name="primaryModelFileOpenToolButton">
+           <property name="toolTip">
+            <string>Open</string>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+           <property name="icon">
+            <iconset resource="fpm-editor.qrc">
+             <normaloff>:/icons/open.png</normaloff>:/icons/open.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>16</width>
+             <height>16</height>
+            </size>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonIconOnly</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QToolButton" name="primaryModelFileSaveToolButton">
+           <property name="toolTip">
+            <string>Save</string>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+           <property name="icon">
+            <iconset resource="fpm-editor.qrc">
+             <normaloff>:/icons/save.png</normaloff>:/icons/save.png</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QGroupBox" name="secondaryModelGroupBox">
+        <property name="title">
+         <string>Low poly model (ms3D)</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_5">
+         <item row="2" column="0">
+          <widget class="QLabel" name="secondaryModelFileNameLabel">
+           <property name="text">
+            <string>File name</string>
+           </property>
+           <property name="buddy">
+            <cstring>secondaryModelFileLineEdit</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="secondaryModelFileLineEdit">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QToolButton" name="secondaryModelFileOpenToolButton">
+           <property name="toolTip">
+            <string>Open</string>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+           <property name="icon">
+            <iconset resource="fpm-editor.qrc">
+             <normaloff>:/icons/open.png</normaloff>:/icons/open.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="3">
+          <widget class="QToolButton" name="secondaryModelFileSaveToolButton">
+           <property name="toolTip">
+            <string>Save</string>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+           <property name="icon">
+            <iconset resource="fpm-editor.qrc">
+             <normaloff>:/icons/save.png</normaloff>:/icons/save.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="4">
+          <widget class="QWidget" name="widget_2" native="true">
+           <layout class="QGridLayout" name="gridLayout_8">
+            <property name="margin">
+             <number>0</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QCheckBox" name="secondaryModelEnableCheckBox">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="secondaryModelZDistanceLabel">
+              <property name="text">
+               <string>Distance</string>
+              </property>
+              <property name="buddy">
+               <cstring>secondaryModelZDistanceLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QLineEdit" name="secondaryModelZDistanceLineEdit">
+              <property name="maximumSize">
+               <size>
+                <width>64</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="maxLength">
+               <number>10</number>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="4">
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="0" column="1">
+             <spacer name="horizontalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QGroupBox" name="tertiaryModelGroupBox">
+        <property name="title">
+         <string>Mask for hole (ms3D)</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_6">
+         <item row="0" column="0">
+          <widget class="QLabel" name="tertiaryModelFileNameLabel">
+           <property name="text">
+            <string>File name</string>
+           </property>
+           <property name="buddy">
+            <cstring>tertiaryModelFileLineEdit</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="tertiaryModelFileLineEdit">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QToolButton" name="tertiaryModelFileOpenToolButton">
+           <property name="toolTip">
+            <string>Open</string>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+           <property name="icon">
+            <iconset resource="fpm-editor.qrc">
+             <normaloff>:/icons/open.png</normaloff>:/icons/open.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QToolButton" name="tertiaryModelFileSaveToolButton">
+           <property name="toolTip">
+            <string>Save</string>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+           <property name="icon">
+            <iconset resource="fpm-editor.qrc">
+             <normaloff>:/icons/save.png</normaloff>:/icons/save.png</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QGroupBox" name="reflectionModelGroupBox">
+        <property name="title">
+         <string>Reflection model (ms3D)</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_7">
+         <item row="0" column="0" colspan="3">
+          <widget class="QCheckBox" name="reflectionModelUSePrimaryCheckBox">
+           <property name="text">
+            <string>Use main model</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="reflectionModelFileNameLabel">
+           <property name="text">
+            <string>File name</string>
+           </property>
+           <property name="buddy">
+            <cstring>reflectionModelFileLineEdit</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="reflectionModelFileLineEdit">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QToolButton" name="reflectionModelFileOpenToolButton">
+           <property name="toolTip">
+            <string>Open</string>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+           <property name="icon">
+            <iconset resource="fpm-editor.qrc">
+             <normaloff>:/icons/open.png</normaloff>:/icons/open.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="QToolButton" name="reflectionModelFileSaveToolButton">
+           <property name="toolTip">
+            <string>Save</string>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+           <property name="icon">
+            <iconset resource="fpm-editor.qrc">
+             <normaloff>:/icons/save.png</normaloff>:/icons/save.png</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="2" column="1" colspan="4">
+    <widget class="QGroupBox" name="visualisationGroupBox">
+     <property name="title">
+      <string>Preview</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_11">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetMaximumSize</enum>
+      </property>
+      <item row="1" column="0" rowspan="4">
+       <widget class="QWidget" name="glWidget" native="true"/>
+      </item>
+      <item row="1" column="1" rowspan="2">
+       <widget class="QGroupBox" name="previewControlsGroupBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="title">
+         <string>Controls</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_16">
+         <item row="1" column="0" colspan="2">
+          <widget class="QCheckBox" name="modelWireFrameCheckBox">
+           <property name="text">
+            <string>Model in wireframe</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0" colspan="2">
+          <widget class="QCheckBox" name="collisionShapeWireFrameCheckBox">
+           <property name="text">
+            <string>Collision shapes in wireframe</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0" colspan="2">
+          <widget class="QCheckBox" name="showBoundinBoxCheckBox">
+           <property name="text">
+            <string>Draw bounding box</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0" colspan="2">
+          <widget class="QCheckBox" name="drawLowPolyCheckBox">
+           <property name="text">
+            <string>Draw low poly model</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0" colspan="2">
+          <widget class="QCheckBox" name="drawPlayfieldCheckBox">
+           <property name="text">
+            <string>Draw playfield</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0" colspan="2">
+          <widget class="QCheckBox" name="drawGridCheckBox">
+           <property name="text">
+            <string>Draw grid</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="0">
+          <widget class="QCheckBox" name="drawBallCheckBox">
+           <property name="text">
+            <string>Draw ball</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QCheckBox" name="maskWFCheckBox">
+           <property name="text">
+            <string>Mask in wireframe</string>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QGroupBox" name="informationGroupBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="title">
+         <string>Information</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_17">
+         <item row="0" column="0">
+          <widget class="QLabel" name="widthLabel">
+           <property name="text">
+            <string>Width :</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="widthValueLabel">
+           <property name="text">
+            <string>-</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="heightLabel">
+           <property name="text">
+            <string>Height :</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLabel" name="heightValueLabel">
+           <property name="text">
+            <string>-</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="lengthLabel">
+           <property name="text">
+            <string>Length :</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLabel" name="lengthValueLabel">
+           <property name="text">
+            <string>-</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="verticesLabel">
+           <property name="text">
+            <string>Vertices :</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="trianglesLabel">
+           <property name="text">
+            <string>Triangles : </string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QLabel" name="verticesValueLabel">
+           <property name="text">
+            <string>-</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QLabel" name="trianglesValueLabel">
+           <property name="text">
+            <string>-</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="framesLabel">
+           <property name="text">
+            <string>Frames :</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1">
+          <widget class="QLabel" name="framesValueLabel">
+           <property name="text">
+            <string>-</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="5" column="0">
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>1</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QGroupBox" name="propertiesGroupBox">
+     <property name="maximumSize">
+      <size>
+       <width>305</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="title">
+      <string>Properties</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_15">
+      <item row="3" column="0" colspan="2">
+       <widget class="QGroupBox" name="groupBox_3">
+        <property name="maximumSize">
+         <size>
+          <width>1600000</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="title">
+         <string>Collision shapes</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_10">
+         <item row="1" column="0" colspan="6">
+          <widget class="QWidget" name="widget_3" native="true">
+           <layout class="QGridLayout" name="gridLayout_12">
+            <property name="margin">
+             <number>0</number>
+            </property>
+            <item row="0" column="2">
+             <widget class="QToolButton" name="collisionElementNextToolButton">
+              <property name="toolTip">
+               <string>Next</string>
+              </property>
+              <property name="text">
+               <string>...</string>
+              </property>
+              <property name="icon">
+               <iconset resource="fpm-editor.qrc">
+                <normaloff>:/icons/next.png</normaloff>:/icons/next.png</iconset>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QToolButton" name="collisionElementPreviousToolButton">
+              <property name="toolTip">
+               <string>Previous</string>
+              </property>
+              <property name="text">
+               <string>...</string>
+              </property>
+              <property name="icon">
+               <iconset resource="fpm-editor.qrc">
+                <normaloff>:/icons/previous.png</normaloff>:/icons/previous.png</iconset>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="4">
+             <widget class="QToolButton" name="collisionElementNewToolButton">
+              <property name="toolTip">
+               <string>New shape</string>
+              </property>
+              <property name="text">
+               <string>...</string>
+              </property>
+              <property name="icon">
+               <iconset resource="fpm-editor.qrc">
+                <normaloff>:/icons/add.png</normaloff>:/icons/add.png</iconset>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="5">
+             <widget class="QToolButton" name="collisionElementDeleteToolButton">
+              <property name="toolTip">
+               <string>Delete current shape</string>
+              </property>
+              <property name="text">
+               <string>...</string>
+              </property>
+              <property name="icon">
+               <iconset resource="fpm-editor.qrc">
+                <normaloff>:/icons/delete.png</normaloff>:/icons/delete.png</iconset>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="collisionElementNavLabel">
+              <property name="text">
+               <string> 0 / 0</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <spacer name="horizontalSpacer_6">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="3" column="0" colspan="6">
+          <widget class="QWidget" name="widget_5" native="true">
+           <layout class="QGridLayout" name="gridLayout_14">
+            <property name="margin">
+             <number>0</number>
+            </property>
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <item row="1" column="0" colspan="3">
+             <widget class="QCheckBox" name="collisionElementGenerateHitCheckBox">
+              <property name="text">
+               <string>Generate script event</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QLabel" name="collisionElementEventIdLabel">
+              <property name="text">
+               <string>event id</string>
+              </property>
+              <property name="buddy">
+               <cstring>collisionElementEventIdLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4">
+             <widget class="QLineEdit" name="collisionElementEventIdLineEdit">
+              <property name="maximumSize">
+               <size>
+                <width>64</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QCheckBox" name="collisionElementEffectBallCheckBox">
+              <property name="text">
+               <string>Collide ball</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="7" column="0" colspan="2">
+          <widget class="QLabel" name="collisionElementTypeLabel">
+           <property name="text">
+            <string>Shape</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="buddy">
+            <cstring>collisionElementTypeComboBox</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="2" colspan="4">
+          <widget class="QComboBox" name="collisionElementTypeComboBox"/>
+         </item>
+         <item row="8" column="0" colspan="6">
+          <widget class="QWidget" name="widget_4" native="true">
+           <layout class="QGridLayout" name="gridLayout_13">
+            <item row="1" column="1">
+             <widget class="QLabel" name="collisionElementPositionLabel">
+              <property name="text">
+               <string>Position</string>
+              </property>
+              <property name="buddy">
+               <cstring>collisionElementPositionXLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLineEdit" name="collisionElementPositionXLineEdit">
+              <property name="maximumSize">
+               <size>
+                <width>64</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QLineEdit" name="collisionElementPositionYLineEdit">
+              <property name="maximumSize">
+               <size>
+                <width>64</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="5">
+             <widget class="QLineEdit" name="collisionElementPositionZLineEdit">
+              <property name="maximumSize">
+               <size>
+                <width>64</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="5">
+             <widget class="QLabel" name="collisionElementPositionZLabel">
+              <property name="text">
+               <string>z</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QLabel" name="collisionElementPositionYLabel">
+              <property name="text">
+               <string>y</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="collisionElementPositionXLabel">
+              <property name="text">
+               <string>x</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLabel" name="collisionElementValue1Label">
+              <property name="text">
+               <string>Value 1</string>
+              </property>
+              <property name="buddy">
+               <cstring>collisionElementValue1LineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QLabel" name="collisionElementValue3Label">
+              <property name="text">
+               <string>Value 3</string>
+              </property>
+              <property name="buddy">
+               <cstring>collisionElementValue3LineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2" colspan="2">
+             <widget class="QLineEdit" name="collisionElementValue1LineEdit">
+              <property name="maximumSize">
+               <size>
+                <width>64</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="2" colspan="2">
+             <widget class="QLineEdit" name="collisionElementValue3LineEdit">
+              <property name="maximumSize">
+               <size>
+                <width>64</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLabel" name="collisionElementValue2Label">
+              <property name="text">
+               <string>Value 2</string>
+              </property>
+              <property name="buddy">
+               <cstring>collisionElementValue2LineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2" colspan="2">
+             <widget class="QLineEdit" name="collisionElementValue2LineEdit">
+              <property name="maximumSize">
+               <size>
+                <width>64</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QLabel" name="collisionElementValue4Label">
+              <property name="text">
+               <string>Value 4</string>
+              </property>
+              <property name="buddy">
+               <cstring>collisionElementValue4LineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="2" colspan="2">
+             <widget class="QLineEdit" name="collisionElementValue4LineEdit">
+              <property name="maximumSize">
+               <size>
+                <width>64</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="9" column="0" colspan="6">
+          <spacer name="verticalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="materialTypeLabel">
+        <property name="text">
+         <string>Material</string>
+        </property>
+        <property name="buddy">
+         <cstring>materialTypeComboBox</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="materialTypeComboBox">
+        <item>
+         <property name="text">
+          <string>Metal</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Wood</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Plastic</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Rubber</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="2">
+       <widget class="QCheckBox" name="perPolygonCollisionCheckBox">
+        <property name="text">
+         <string>Per polygon collision</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QWidget" name="widget_7" native="true">
+        <layout class="QGridLayout" name="gridLayout_9">
+         <property name="margin">
+          <number>0</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QLabel" name="customValueLabel">
+           <property name="text">
+            <string>Custom value</string>
+           </property>
+           <property name="buddy">
+            <cstring>customValueLineEdit</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLineEdit" name="customValueLineEdit">
+           <property name="maxLength">
+            <number>10</number>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="3" colspan="2">
+    <widget class="QWidget" name="widget" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>350</width>
+       <height>129</height>
+      </size>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_18">
+      <property name="topMargin">
+       <number>5</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="fpm-editor.qrc">:/images/logo.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>modelNameLineEdit</tabstop>
+  <tabstop>primaryModelFileLineEdit</tabstop>
+  <tabstop>primaryModelFileOpenToolButton</tabstop>
+  <tabstop>primaryModelFileSaveToolButton</tabstop>
+  <tabstop>secondaryModelEnableCheckBox</tabstop>
+  <tabstop>secondaryModelZDistanceLineEdit</tabstop>
+  <tabstop>secondaryModelFileLineEdit</tabstop>
+  <tabstop>secondaryModelFileOpenToolButton</tabstop>
+  <tabstop>secondaryModelFileSaveToolButton</tabstop>
+  <tabstop>tertiaryModelFileLineEdit</tabstop>
+  <tabstop>tertiaryModelFileOpenToolButton</tabstop>
+  <tabstop>tertiaryModelFileSaveToolButton</tabstop>
+  <tabstop>reflectionModelUSePrimaryCheckBox</tabstop>
+  <tabstop>reflectionModelFileLineEdit</tabstop>
+  <tabstop>reflectionModelFileOpenToolButton</tabstop>
+  <tabstop>reflectionModelFileSaveToolButton</tabstop>
+  <tabstop>collisionElementPreviousToolButton</tabstop>
+  <tabstop>collisionElementNextToolButton</tabstop>
+  <tabstop>collisionElementNewToolButton</tabstop>
+  <tabstop>collisionElementDeleteToolButton</tabstop>
+  <tabstop>collisionElementGenerateHitCheckBox</tabstop>
+  <tabstop>collisionElementTypeComboBox</tabstop>
+  <tabstop>collisionElementPositionXLineEdit</tabstop>
+  <tabstop>collisionElementPositionYLineEdit</tabstop>
+  <tabstop>collisionElementPositionZLineEdit</tabstop>
+  <tabstop>collisionElementValue1LineEdit</tabstop>
+  <tabstop>collisionElementValue3LineEdit</tabstop>
+ </tabstops>
+ <resources>
+  <include location="fpm-editor.qrc"/>
+ </resources>
+ <connections/>
+</ui>

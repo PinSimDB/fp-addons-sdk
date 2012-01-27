@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ops-msole-rw" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="libops-msole-rw" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj\Debug\" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="libops-msole-rw" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj\Release\" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add directory="$(#openps_deps.include)" />
+			<Add directory="$(#openps_deps.include)\glib-2.0" />
+			<Add directory="$(#openps_deps.lib)\glib-2.0\include" />
+			<Add directory="$(#openps_deps.include)\libgsf-1" />
+			<Add directory="..\ops" />
+		</Compiler>
+		<Linker>
+			<Add library="ops" />
+			<Add library="m" />
+			<Add library="z" />
+			<Add library="bz2" />
+			<Add library="xml2" />
+			<Add library="gobject-2.0" />
+			<Add library="glib-2.0" />
+			<Add library="gsf-1" />
+			<Add directory="..\ops" />
+		</Linker>
+		<Unit filename="ops-msole-reader.cpp" />
+		<Unit filename="ops-msole-writer.cpp" />
+		<Unit filename="ops-msole.cpp" />
+		<Unit filename="ops-msole.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

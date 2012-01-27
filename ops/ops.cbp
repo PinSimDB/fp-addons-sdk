@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ops" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="libops" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj\Debug\" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="libops" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj\Release\" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-Wall" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add directory="$(#openps_deps.include)" />
+		</Compiler>
+		<Linker>
+			<Add directory="$(#openps_deps.lib)" />
+		</Linker>
+		<Unit filename="lzoconf.h" />
+		<Unit filename="lzodefs.h" />
+		<Unit filename="mathlib.cpp" />
+		<Unit filename="mathlib.h" />
+		<Unit filename="minilzo.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="minilzo.h" />
+		<Unit filename="msModel.cpp" />
+		<Unit filename="msModel.h" />
+		<Unit filename="ops-base.cpp" />
+		<Unit filename="ops-base.h" />
+		<Unit filename="ops-files.cpp" />
+		<Unit filename="ops-files.h" />
+		<Unit filename="ops-log.cpp" />
+		<Unit filename="ops-log.h" />
+		<Unit filename="ops-lzo.h" />
+		<Unit filename="ops-model.cpp" />
+		<Unit filename="ops-model.h" />
+		<Unit filename="ops-ms3d.h" />
+		<Unit filename="ops-table.cpp" />
+		<Unit filename="ops-table.h" />
+		<Unit filename="ops-tools.cpp" />
+		<Unit filename="ops-tools.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

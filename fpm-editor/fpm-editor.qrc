@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/[Chrome-Silver].bmp</file>
+        <file>images/logo.png</file>
+        <file>icons/saveas.png</file>
+        <file>icons/add.png</file>
+        <file>icons/close.png</file>
+        <file>icons/delete.png</file>
+        <file>icons/help.png</file>
+        <file>icons/load.png</file>
+        <file>icons/new.png</file>
+        <file>icons/next.png</file>
+        <file>icons/open.png</file>
+        <file>icons/previous.png</file>
+        <file>icons/save.png</file>
+        <file>icons/FPEd96x96.ico</file>
+        <file>images/p1-beachwood.png</file>
+    </qresource>
+</RCC>

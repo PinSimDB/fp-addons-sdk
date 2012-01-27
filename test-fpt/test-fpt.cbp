@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="test-fpt" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="..\bin\test-fpt" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Debug\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin\Release\test-fpt" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Release\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add directory="..\ops" />
+			<Add directory="..\ops-msole-rw" />
+			<Add directory="..\ops-fp" />
+			<Add directory="..\ops-fp-writer" />
+			<Add directory="$(#openps_deps.include)" />
+			<Add directory="$(#openps_deps.include)\glib-2.0" />
+			<Add directory="$(#openps_deps.lib)\glib-2.0\include" />
+			<Add directory="$(#openps_deps.include)\libgsf-1" />
+		</Compiler>
+		<Linker>
+			<Add option="-static-libgcc" />
+			<Add library="ops-fp-writer" />
+			<Add library="ops-fp" />
+			<Add library="ops-msole-rw" />
+			<Add library="ops" />
+			<Add library="m" />
+			<Add library="z" />
+			<Add library="bz2" />
+			<Add library="xml2" />
+			<Add library="gobject-2.0" />
+			<Add library="glib-2.0" />
+			<Add library="gsf-1" />
+			<Add directory="$(#openps_deps.lib)" />
+			<Add directory="..\ops" />
+			<Add directory="..\ops-msole-rw" />
+			<Add directory="..\ops-fp" />
+			<Add directory="..\ops-fp-writer" />
+		</Linker>
+		<Unit filename="main.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

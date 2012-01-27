@@ -1,0 +1,4 @@
+obj
+libops-fp-writer.a
+*.depend
+*.layout

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ops-fp-writer" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="libops-fp-writer" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj\Debug\" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="libops-fp-writer" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj\Release\" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add directory="$(#openps_deps.include)" />
+			<Add directory="$(#openps_deps.include)\glib-2.0" />
+			<Add directory="$(#openps_deps.lib)\glib-2.0\include" />
+			<Add directory="$(#openps_deps.include)\libgsf-1" />
+			<Add directory="..\ops-msole-rw" />
+			<Add directory="..\ops-fp" />
+			<Add directory="..\ops" />
+		</Compiler>
+		<Linker>
+			<Add library="ops-msole-rw" />
+			<Add library="ops-fp" />
+			<Add library="ops" />
+			<Add library="m" />
+			<Add library="z" />
+			<Add library="bz2" />
+			<Add library="xml2" />
+			<Add library="gobject-2.0" />
+			<Add library="glib-2.0" />
+			<Add library="gsf-1" />
+			<Add directory="$(#openps_deps.lib)" />
+			<Add directory="..\ops" />
+			<Add directory="..\ops-msole-rw" />
+			<Add directory="..\ops-fp" />
+		</Linker>
+		<Unit filename="ops-fp-writer.cpp" />
+		<Unit filename="ops-fp-writer.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

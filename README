@@ -1,0 +1,59 @@
+
+							  FP Addons SDK
+
+---
+https://github.com/PinSimDB/fp-addons-sdk
+
+This is the FP Addons SDK, a simple set of lib and tools that provides 
+Future Pinball files manipulation.
+
+
+FP Addons SDK is written in C++ / Qt. 
+A Code::Blocks workspace is provided for the libraries and command line 
+tools, A Qt project for FPM Editor.
+
+Projects :
+- ops : base general purpose library
+- ops-msole-ro : read-only MS Compound File handling library
+- ops-msole-rw : read/write MS Compound File handling library
+- ops-fp : read-only Future Pinball handling library
+- ops-fp-writer : read-write Future Pinball handling library
+- fp-dump : command line tool for dumping FP file content
+- fp-grab : command line tool for extracting dumping FP file resources
+- fpm-editor : GUI tool for creating/editing FP model file
+
+
+
+It uses the following libraries, which are distributed under their own license :
+- minilzo, a subset of the LZO library : 
+	http://www.oberhumer.com/opensource/lzo/
+	minilzo.c
+	minilzo.h
+	lzoconf.h
+	lzodefs.h
+- MilkShape 3D Model Viewer Sample : 
+	http://www.milkshape3d.com
+	msModel.h
+	msModel.cpp
+	mathlib.h
+	mathlib.cpp
+- POLE - Portable C++ library to access OLE Storage 	
+	http://www.dimin.net/software/pole/
+	pole.cpp
+	pole.h
+- libgsf ans its dependancies (glib, libbzip2, libxml2, zlib)
+	http://directory.fsf.org/wiki/Libgsf
+	
+
+This project is distributed under the GPLv3 license, which can be found
+in the file "COPYING".
+
+
+If you need help with the project, or just want to discuss any related
+issues, you can join the developers at:
+	https://github.com/PinSimDB/fp-addons-sdk
+	http://www.gopinball.com/forum/viewtopic.php?f=74&t=1680
+
+Enjoy!
+	LvR	(lvr@pinsimdb.org)
+

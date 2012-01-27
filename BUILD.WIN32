@@ -1,0 +1,58 @@
+Here is a quick setp guide for building libs and tools in win32 plateform.
+
+Build tool chain : 
+- Code::Blocks / MinGW (from QtSDK build)
+- QtSDK
+
+${BASE_DIR} refer to your dev directory on your harddrive.
+${BASE_DIR}\workspace\fp-addons-sdk : when you put FP Addons SDK sources
+
+1/ Install Code::Blocks 10.05
+- Download from http://www.codeblocks.org/downloads/26
+- Install to : ${BASE_DIR}\CodeBlocks
+
+2/ Install QtSDK
+- Download from http://qt.nokia.com/downloads
+- Install to ${BASE_DIR}\QtSDK
+- Copy from ${BASE_DIR}\QtSDK\Desktop\Qt\4.7.3\mingw\bin to ${BASE_DIR}\workspace\fp-addons-sdk\bin :
+	libgcc_s_dw2-1.dll
+	mingwm10.dll
+	QtCore4.dll
+	QtCore4d.dll
+	QtGui4.dll
+	QtGui4d.dll
+	QtOpenGL4.dll
+	QtOpenGL4d.dll
+	
+3/ Install libgsf (needed for libops-msole-rw)
+- Download thoses files from http://pinsimdb.org/projects/fp-addons-sdk/, or compile it yourself from sources
+	glib_2.22.4-1_win32.zip
+	glib-dev_2.22.4-1_win32.zip
+	libbzip2_1.0.5-2_win32.zip
+	libbzip2-dev_1.0.5-2_win32.zip
+	libgsf_1.14.15-1_win32.zip
+	libgsf-dev_1.14.15-1_win32.zip
+	libxml2_2.7.4-1_win32.zip
+	libxml2-dev_2.7.4-1_win32.zip
+	zlib-1.2.3.zip
+	zlib-dev-1.2.3.zip
+- Unzip all to : ${BASE_DIR}\workspace\fp-addons-sdk\deps\
+- Copy all ${BASE_DIR}\workspace\fp-addons-sdk\deps\bin\*.dll to ${BASE_DIR}\workspace\fp-addons-sdk\bin
+
+4/ Configure Code::Blocks 
+- Open ${BASE_DIR}\workspace\fp-addons-sdk\codeblocks.workspace
+- In Settings > Global Variables, create a new variable :
+	openps_deps
+	.base : C:\xeoou\dev\openps\deps
+	.include : C:\xeoou\dev\openps\deps\include
+	.lib : C:\xeoou\dev\openps\deps\lib
+- In Settings > Compiler and debugger, change profil ‘GNU GCC Compiler’ :
+	Change path in Toolchain Executable -> Compiler’s installation directory to : ${BASE_DIR}\QtSDK\mingw
+
+5/ Build Code::Blocks projects
+- In CodeBlocks, rebuild all
+
+6/ build QtSDK projects
+- Open ${BASE_DIR}\workspace\fp-addons-sdk\fpm-editor\fpm-editor.pro with QtEditor and build
+
+7/ All tools should be built in ${BASE_DIR}\workspace\fp-addons-sdk\bin directory.

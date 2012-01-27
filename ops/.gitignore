@@ -1,0 +1,4 @@
+obj
+libops.a
+*.depend
+*.layout

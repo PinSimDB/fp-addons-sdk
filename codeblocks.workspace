@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_workspace_file>
+	<Workspace title="Workspace">
+		<Project filename="ops/ops.cbp" />
+		<Project filename="ops-msole-ro/ops-msole-ro.cbp" />
+		<Project filename="ops-msole-rw/ops-msole-rw.cbp" />
+		<Project filename="ops-fp/ops-fp.cbp" />
+		<Project filename="ops-fp-writer/ops-fp-writer.cbp" />
+		<Project filename="fp-dump/fp-dump.cbp" />
+		<Project filename="fp-grab/fp-grab.cbp" />
+		<Project filename="test-fpt/test-fpt.cbp" active="1" />
+	</Workspace>
+</CodeBlocks_workspace_file>

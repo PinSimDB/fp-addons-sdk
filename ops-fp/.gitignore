@@ -1,0 +1,4 @@
+obj
+libops-fp.a
+*.depend
+*.layout

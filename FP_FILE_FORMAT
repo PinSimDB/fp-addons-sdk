@@ -1,0 +1,276 @@
+FP FILE FORMAT
+--------------
+
+for FP version 1.9 and 1.9.1
+
+.fpt
+
+MS Compound File with the following struct :
+
+(file.fpt)
+	Future Pinball (directory)
+	   File Version (file) : FP version needed
+	   Table Data (file) : general info, table, translite ...
+	   Table MAC (file) : hashcode for table integrity check
+	   Table Element XXX : element placed on playfield or translite, LightList or ImageList
+
+		DmdFont XXX : linked or embedded DmdFont resource
+		Image XXX : linked or embedded Texture resource
+		PinModel XXX : linked or embedded Model resource
+		Sound XXX : linked or embedded Sound resource
+		Music XXX : linked or embedded Music resource
+		ImageList XXX : list of image names
+		LightList XXX : list of light names
+
+
+.fpl
+
+MS Compound File with the following struct :
+
+(file.fpl)
+	element name (directory) : a directory per element present in library.
+		FTYP (file) : type of resource
+		FPAT (file) : original file path before inclusion in library
+		FLAD (file) : unknown (hashcode for file integrity check ?)
+		FDAT (file) : compressed or not raw data of .tga, .jpg, .bmp (compressed), .ogg, .dmdf, .fpm
+					  Compression used is LZO1X algorythm.
+					  
+
+
+.fpm file
+
+MS Compound File with the following struct :
+
+(file.fpm)
+	PinModel (directory)
+		ModelData (file) : binary file, same format as fpt's PinModel XXX
+
+
+
+PinModel binary format
+----------------------
+block struct
+uint32_t len (of chunk + data)
+uint32_t chunk
+uint8_t * data
+
+data representation
+string :
+uint32_t len
+uint8_t * value
+
+int :
+uint32_t value
+
+float :
+float value
+
+rawdata :
+zLZO or not data
+
+
+
+
+Model type value list
+  1 : Peg
+  2 : Flipper
+  3 : Bumper Base
+  4 : Bumper Cap
+  5 : Target
+  6 : Drop Target
+  7 : (Plunger) : hardcoded in FP
+  8 : Ornament
+  9 : Kicker
+ 10 : Lane Guide
+ 11 : Rubber
+ 12 : Trigger
+ 13 : Flasher
+ 14 : Bulb
+ 15 : Gate
+ 16 : Spinner
+ 17 : Toy
+ 18 : Diverter
+ 19 : AutoPlunger
+ 20 : Popup
+ 21 : RampModel
+ 22 : RampWireEnder
+ 23 : SpinningDisk
+ 24 : EmKicker
+ 25 : TriggerOpto
+ 
+material value list :
+ 0 : Metal
+ 1 : Wood
+ 2 : plastic
+ 3 : Rubber
+
+collision shape struct :
+struct {
+	uint32_t : shape type
+	uint32_t : Generate hit event
+	uint32_t : Collision effects ball
+	uint32_t : event ID
+	float : x
+	float : y
+	float : z
+	float : value1 : base radius (3) / radius (1, 7) / half width (5)
+	float : value2 : tip radius  (3) / half lenght (1, 7) / half height (5)
+	float : value3 : lenght      (3) / radius (7) / half length (5)
+	float : value4 : half height (3)
+}
+
+shape type value list :
+ 0 : Unknown
+ 1 : Vertical Cylinder
+ 2 : Sphere
+ 3 : Flipper
+ 4 : Bumper // not used in FP
+ 5 : Box
+ 6 : Convex hull // not used in FP
+ 7 : Horizontal cylinder
+
+
+
+
+
+
+Resource (Image, Sound, Music, DmdFont) binary format
+-----------------------------------------------------
+
+Resource type value list :
+ 1 : bmp image
+ 2 : jpg image
+ 4 : tga image
+ 9 : ogg sound/music
+15 : dmdf
+
+
+
+
+Table Data :
+------------
+Machine type value list :
+TODO
+
+
+
+
+Table Element :
+---------------
+
+
+Element type
+ 1 :
+ 2 : Surface
+ 3 : Lights > Round
+ 4 : Lights > Shapeable
+ 5 :
+ 6 : Objects > Peg
+ 7 : Control > Flipper
+ 8 : Control > Bumper
+ 9 :
+10 : Targets > Leaf
+11 : Targets > DropTarget
+12 : Control > Plunger
+13 : Rubbers > Round
+14 : Rubbers > Shapeable
+15 : Objects > Ornament
+16 : Guides > Wall
+17 : Special > Timer
+18 : Special > Decal
+19 : Control > Kicker
+20 : Guides > Lane
+21 : Rubbers > Model
+22 : Triggers > Trigger
+23 : Lights > Flasher
+24 : Guides > Wire
+25 : Displays > DispReel
+26 : Displays > HudReel
+27 : Special > Overlay
+28 :
+29 : Lights > Bulb
+30 : Triggers > Gate
+31 : Triggers > Spinner
+32 :
+33 : Toy > ?Custom?
+34 : Lights > Sequencer
+35 :
+36 :
+37 : Displays > Segment
+38 : Displays > HudSegment
+39 : Displays > Dmd
+40 : Displays > HudDmd
+41 :
+42 : 
+43 : Controls > Diverter
+44 : Special > STA
+45 :
+46 : Control > AutoPlunger
+47 :
+48 :
+49 : Targets > RotoTarget
+50 : Controls > Popup
+51 : Ramps > RampModel
+52 :
+53 : Ramps > WireRamp
+54 : Targets > SwingTarget
+55 : Ramps > Ramp
+56 : Toys > SpinningDisk
+57 : Lights > LightImage
+58 : Kicker > EMKicker
+59 :
+60 : Lights > HudLightImage
+61 : Triggers > OptoTrigger
+62 : Targets > TargetVari
+63 :
+64 : Toys > Hologram
+
+
+Elasticicy value list
+ 0 : Hard
+ 1 : Intermediate
+ 2 : Soft
+
+Light state value list
+ 0 : BulbOff
+ 1 : BulbOn
+ 2 : BulbBlink
+
+DispSeg segment style value list :
+ 0 : AlphaNumeric
+ 1 : Gottlieb
+ 2 : Clock
+ 
+DispSeg aligment value list
+ 0 : AlignLeft
+ 1 : AlignCenter
+ 2 : AlingRight
+
+HudDmd type value list
+ 0 : 128x32
+ 1 : 128x16
+ 2 : 192x64
+
+Plunger v-cut lenght value list :
+ 0 : Short
+ 1 : Regular
+ 2 : Long
+
+Kicker Type :
+ 0 : Directionnal
+ 1 : GobbleHole
+ 2 : VUK
+
+Rubbers type
+ 0 : MiniPost
+ 1 : PassiveBumper
+ 2 : Post
+ 3 : Tiny
+
+Spinningdisk Damping :
+ 0 : Loose
+ 1 : Norm
+ 2 : Tight
+
+WireRamp ring type value list :
+TODO
