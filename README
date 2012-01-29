@@ -7,10 +7,10 @@ https://github.com/PinSimDB/fp-addons-sdk
 This is the FP Addons SDK, a simple set of lib and tools that provides 
 Future Pinball files manipulation.
 
-
 FP Addons SDK is written in C++ / Qt. 
 A Code::Blocks workspace is provided for the libraries and command line 
 tools, A Qt project for FPM Editor.
+
 
 Projects :
 - ops : base general purpose library
@@ -21,7 +21,6 @@ Projects :
 - fp-dump : command line tool for dumping FP file content
 - fp-grab : command line tool for extracting dumping FP file resources
 - fpm-editor : GUI tool for creating/editing FP model file
-
 
 
 It uses the following libraries, which are distributed under their own license :
