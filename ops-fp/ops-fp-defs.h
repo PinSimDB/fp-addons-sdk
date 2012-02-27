@@ -206,9 +206,7 @@ namespace fp
 		{0x95F5C6D2, T_CHUNK_INT,		"unknown_13", -1},
 		{0x9BFBCED2, T_CHUNK_INT,		"unknown_14", -1},
 		{0xA4FDC3E2, T_CHUNK_GENERIC,	"unknown_15", -1},
-
 		{0x4F5A4C7A, T_CHUNK_RAWDATA,	"script", -1},
-
 		{0x91FBCCD6, T_CHUNK_FLOAT,		"translate_x", -1},
 		{0x90FBCCD6, T_CHUNK_FLOAT,		"translate_y", -1},
 		{0x9200CFD2, T_CHUNK_FLOAT,		"scale_x", -1},
@@ -366,7 +364,7 @@ namespace fp
 		{0xA1FDC0D6, T_CHUNK_INT,		"ordered_halo_glow", -1},
 		{0x9DF2CFD0, T_CHUNK_COLOR,		"unlit_color", -1},
 		{0x9DF2CFE3, T_CHUNK_COLOR,		"base_color", -1},
-		{0xA8EDC3D3, T_CHUNK_INT,		"unknown_1", -1},
+		{0xA8EDC3D3, T_CHUNK_INT,		"rotation", -1},
 		{0x96E8C0E2, T_CHUNK_INT,		"crystal", -1},
 		{0x9DFBCDD3, T_CHUNK_INT,		"reflects_off_playfield", -1},
 		{0xA1FABED2, T_CHUNK_INT,		"strength", -1},
@@ -506,7 +504,7 @@ namespace fp
 		{0x97F2C4DF, T_CHUNK_INT,		"flat_shading", -1},
 		{0x9C00C0D1, T_CHUNK_INT,		"transparency", -1},
 		{0xA2F8CDDD, T_CHUNK_FLOAT,		"top_height", -1},
-		{0x95FDC9CE, T_CHUNK_FLOAT,		"bottom_height", -1},
+		{0x95FDC9CE, T_CHUNK_FLOAT,		"width", -1},
 		{0x99E8BED8, T_CHUNK_VALUELIST,	"material_type", -1, &VL_MATERIAL},
 		{0x9DFBCDD3, T_CHUNK_INT,		"reflects_off_playfield", -1},
 		{0x99F2C0E1, T_CHUNK_INT,		"dropped", -1},
