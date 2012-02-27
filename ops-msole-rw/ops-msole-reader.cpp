@@ -103,28 +103,26 @@ uint32_t FileReaderI::close() {
 
 
 void FileReaderI::listVisitor(GsfInput * input, vector<string> * result, string partialInfile) {
-	// TODO : closed file !!!
 	if (GSF_IS_INFILE (input) && gsf_infile_num_children (GSF_INFILE (input)) > 0) {
 		for (int32_t i = 0 ; i < gsf_infile_num_children (GSF_INFILE (input)) ; i++) {
 			GsfInput * child = gsf_infile_child_by_index (GSF_INFILE (input), i);
 			string infileName = gsf_input_name(child);
 			result->push_back(partialInfile + infileName);
 			listVisitor(child, result, partialInfile + infileName + "/");
+			g_object_unref (G_OBJECT (child));
 		}
 	}
 }
 
-vector<string> * FileReaderI::list() {
-
+vector<string> * FileReaderI::list() 
+{
 	if (baseInfile == NULL) {
 		ERROR << "ops::msole::FileReader::list() : file not opened";
 	   return NULL;
 	}
-
 	GsfInput * input = GSF_INPUT(baseInfile);
 	vector<string> * result = new vector<string>();
 	listVisitor(input, result, "");
-
 	return result;
 }
 
