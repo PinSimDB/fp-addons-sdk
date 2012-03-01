@@ -1235,7 +1235,7 @@ namespace fp
 		{0xA8EDC3D3, T_CHUNK_INT,		"rotation", -1},
 		{0x95F5C9D1, T_CHUNK_INT,		"tilt", -1},
 		{0x96FBCCD6, T_CHUNK_INT,		"offset", -1},
-		{0x96F5C5DC, T_CHUNK_INT,		"image_list", -1},
+		{0x96F5C5DC, T_CHUNK_STRING,	"image_list", -1},
 		{0x95F3C9D0, T_CHUNK_INT,		"animation_update_interval", -1},
 		{0x97F5CFE1, T_CHUNK_COLOR,		"matrix_color", -1},
 		{0x9CFDD1D3, T_CHUNK_INT,		"render_as_dmd_matrix", -1},
