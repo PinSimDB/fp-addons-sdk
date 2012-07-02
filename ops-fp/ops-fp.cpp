@@ -61,10 +61,61 @@ namespace fp
 		parent = NULL;
 	}
 	ChunkChunkList::~ChunkChunkList() {
-		for (uint32_t i=0; i<value.size(); i++) {
-			delete value[i];
-		}
+    // 08/05/12 SK1: typesafe delete of chunk objects
+    uint32_t size = value.size();
+    for (uint32_t i=0; i<size; i++)
+    {
+      ChunkGeneric *chunk = value[i];
+      switch( chunk->descriptor.type )
+      {
+        case T_CHUNK_CHUNKLIST :
+                            delete (ChunkChunkList*) chunk;
+                            break;
+        case T_CHUNK_GENERIC :
+                            delete (ChunkGeneric*) chunk;
+                            break;
+        case T_CHUNK_COLLISIONDATA :
+        case T_CHUNK_RAWDATA :
+                            delete (ChunkRawData*) chunk;
+                            break;
+        case T_CHUNK_INT :
+                            delete (ChunkInt*) chunk;
+                            break;
+        case T_CHUNK_COLOR :
+                            delete (ChunkColor*) chunk;
+                            break;
+        case T_CHUNK_VALUELIST :
+                            delete (ChunkValueList*) chunk;
+
+                            break;
+        case T_CHUNK_FLOAT :
+                            delete (ChunkFloat*) chunk;
+                            break;
+        case T_CHUNK_VECTOR2D :
+                            delete (ChunkVector2D*) chunk;
+                            break;
+        case T_CHUNK_STRING :
+                            delete (ChunkString*) chunk;
+                            break;
+        case T_CHUNK_WSTRING :
+                            delete (ChunkString*) chunk;
+                            break;
+        case T_CHUNK_STRINGLIST :
+                            {
+                              ChunkStringList* list = (ChunkStringList*)chunk;
+                              list->value.clear();
+                            }
+                            delete (ChunkStringList*) chunk;
+                            break;
+        default:
+                            delete chunk;
+                            break;
+      }
+    }
+
+    value.clear();
 	}
+
 	void ChunkChunkList::add(ChunkGeneric * child) {
 		value.push_back(child);
 	}
@@ -481,7 +532,6 @@ ChunkGeneric * FPBaseHandler::analyseChunk (ChunkChunkList ** result, const std:
 				*result = newChunkList;
 				return chunkBlock;
 			}
-			break;
 		case T_CHUNK_GENERIC :
 			{
 				chunkBlock = (ChunkGeneric *)new ChunkGeneric(sectionLen, originalChunk, *descriptor);
@@ -522,8 +572,10 @@ ChunkGeneric * FPBaseHandler::analyseChunk (ChunkChunkList ** result, const std:
 				value[i] = *((int16_t *)(data+4+i*2));
 			}
 			chunkBlock = (ChunkGeneric *)new ChunkString(sectionLen, originalChunk, *descriptor, std::string(value, valueLen) );
+            delete [] value;
 			}
-		break;
+
+			break;
 		case T_CHUNK_STRINGLIST :
 			{
 			uint32_t nbItems = *((uint32_t *)data);
@@ -540,11 +592,19 @@ ChunkGeneric * FPBaseHandler::analyseChunk (ChunkChunkList ** result, const std:
 			break;
 		case T_CHUNK_RAWDATA :
 		case T_CHUNK_COLLISIONDATA :
-			chunkBlock = (ChunkGeneric *)new ChunkRawData(sectionLen, originalChunk, *descriptor, *getRawData(data, sectionLen, false));
+                                        {
+                                                            ops::RawData *rd = getRawData(data, sectionLen, false);
+			chunkBlock = (ChunkGeneric *)new ChunkRawData(sectionLen, originalChunk, *descriptor, *rd);
+                                                            delete rd;
 			break;
+                                        }
 		default:
-			chunkBlock = (ChunkGeneric *)new ChunkRawData(sectionLen, originalChunk, *descriptor, *getRawData(data, sectionLen, false));
+                                        {
+                                                            ops::RawData *rd = getRawData(data, sectionLen, false);
+			chunkBlock = (ChunkGeneric *)new ChunkRawData(sectionLen, originalChunk, *descriptor, *rd);
+                                                            delete rd;
 			break;
+                                        }
 		}
 	}
 	if (chunkBlock == NULL) {
@@ -555,7 +615,9 @@ ChunkGeneric * FPBaseHandler::analyseChunk (ChunkChunkList ** result, const std:
 		} else {
 			// Unknown section
 			WARNING << "unkown chunk : " << "0x" << std::setw(8) << std::setfill('0') << std::right << std::hex << std::uppercase << chunk << " ["  << "0x" << originalChunk << "]";
-			chunkBlock = (ChunkGeneric *)new ChunkRawData(sectionLen, originalChunk, CHUNK_UNKNOWN, *getRawData(data, sectionLen, false));
+                                                            ops::RawData *rd = getRawData(data, sectionLen, false);
+			chunkBlock = (ChunkGeneric *)new ChunkRawData(sectionLen, originalChunk, CHUNK_UNKNOWN, *rd);
+                                                            delete rd;
 		}
 	}
 
@@ -1050,6 +1112,7 @@ ChunkGeneric * FPTHandler::flexLoad(std::string filepath, bool keepPinModelRaw) 
 			break;
 		}
 		delete rawData;
+        delete validRawData; // 08/05/12 Added by SK1
 		chunks->parent = globalChunks;
 		globalChunks->add(chunks);
 	}
@@ -1127,3 +1190,6 @@ ChunkGeneric * FPLHandler::flexLoad(std::string filepath) {
 
 } // namespace fp
 } // namespace ops
+
+
+

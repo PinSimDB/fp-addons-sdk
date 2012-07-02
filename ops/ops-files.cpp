@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <dir.h>
 
 // ops
 #include "ops-base.h"
@@ -329,7 +330,7 @@ int32_t StdFile::tell ()
     return res;
 }
 
-uint32_t StdFile::read(void * ptr, size_t count)
+uint32_t StdFile::read(void * ptr, uint32_t count)
 {
     if (stream == NULL)
     {
@@ -693,6 +694,7 @@ bool ConfigManager::parse(ops::files::AbsFile &inFile)
             }
         }
     }
+    return true;
 }
 
 std::string ConfigManager::stringValue(const char * section, const char * key)
@@ -811,7 +813,7 @@ if (mode == LZOFILE_MODE_READ)
                     stream->read(&pathLen, sizeof(pathLen));
                     if (pathLen != 0)
                     {
-                        char buffer[pathLen+1];
+                        char *buffer = new char[pathLen+1];
                         stream->read(buffer, pathLen);
                         buffer[pathLen]=0;
                         LZOFileIndex newIndex;
@@ -820,6 +822,7 @@ if (mode == LZOFILE_MODE_READ)
                         stream->read(&newIndex.compressedSize, sizeof(newIndex.compressedSize));
                         stream->read(&newIndex.index, sizeof(newIndex.index));
                         filesIndex.push_back(newIndex);
+                        delete [] buffer;
                     }
                 }
                 while (pathLen != 0);

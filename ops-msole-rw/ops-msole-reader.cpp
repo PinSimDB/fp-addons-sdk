@@ -42,7 +42,7 @@ class FileReaderI {
 private:
 	GsfInfile * baseInfile;
 	std::map<std::string, GsfInput*> openDirList;
-	void listVisitor(GsfInput * input, std::vector<std::string> * result, std::string partialInfile);
+	void listVisitor(GsfInput * input, std::vector<std::string> * result, std::string partialInfile, std::vector<GsfInput *> *visited );
 
 public:
 	uint32_t open(std::string filepath);
@@ -59,6 +59,7 @@ uint32_t FileReaderI::open(string filepath) {
 
 	// open file
 	GsfInput * input = gsf_input_stdio_new (filepath.c_str(), &err);
+
 	if (input == NULL) {
 		ERROR << "ops::msole::FileReader::open() : can't open " + filepath + " : " + err->message;
 		g_error_free (err);
@@ -102,27 +103,42 @@ uint32_t FileReaderI::close() {
 
 
 
-void FileReaderI::listVisitor(GsfInput * input, vector<string> * result, string partialInfile) {
-	if (GSF_IS_INFILE (input) && gsf_infile_num_children (GSF_INFILE (input)) > 0) {
-		for (int32_t i = 0 ; i < gsf_infile_num_children (GSF_INFILE (input)) ; i++) {
+void FileReaderI::listVisitor(GsfInput * input, vector<string> * result, string partialInfile, vector<GsfInput *> * visited)
+{
+	// TODO : closed file !!!
+	if (GSF_IS_INFILE (input) && gsf_infile_num_children (GSF_INFILE (input)) > 0)
+                    {
+		for (int32_t i = 0 ; i < gsf_infile_num_children (GSF_INFILE (input)) ; i++)
+                                        {
 			GsfInput * child = gsf_infile_child_by_index (GSF_INFILE (input), i);
 			string infileName = gsf_input_name(child);
 			result->push_back(partialInfile + infileName);
-			listVisitor(child, result, partialInfile + infileName + "/");
-			g_object_unref (G_OBJECT (child));
+                                                            visited->push_back( child );
+			listVisitor(child, result, partialInfile + infileName + "/", visited);
 		}
 	}
 }
 
-vector<string> * FileReaderI::list() 
-{
+vector<string> * FileReaderI::list() {
+
 	if (baseInfile == NULL) {
 		ERROR << "ops::msole::FileReader::list() : file not opened";
 	   return NULL;
 	}
+
 	GsfInput * input = GSF_INPUT(baseInfile);
 	vector<string> * result = new vector<string>();
-	listVisitor(input, result, "");
+	vector<GsfInput *> * visited = new vector<GsfInput*>();
+	listVisitor(input, result, "", visited);
+
+                    std::vector <GsfInput*>::iterator it;
+                    for( it = visited->begin(); it != visited->end(); ++it )
+                    {
+                      g_object_unref (G_OBJECT (*it));
+                    }
+                    delete visited;
+
+
 	return result;
 }
 

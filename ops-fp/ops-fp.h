@@ -17,7 +17,6 @@ namespace ops
 namespace fp
 {
 
-#define ARRAY2VECTOR(T, NAME) std::vector<T> NAME(NAME##_ARRAY, NAME##_ARRAY + sizeof(NAME##_ARRAY)/sizeof(T))
 
 
 	// TODO
