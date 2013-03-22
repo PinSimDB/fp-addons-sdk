@@ -15,6 +15,7 @@
 #define _MSMODEL_H_
 
 #include <vector>
+#include <string.h>
 #include <stdint.h>
 
 #define MAX_VERTICES				65534

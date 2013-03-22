@@ -12,8 +12,8 @@
 #include <fstream>
 
 // libops
-#include "ops-log.h"
 #include "ops-fp.h"
+#include "ops-log.h"
 #include "ops-files.h"
 
 void dumpFPM(ops::files::ConfigManager &config, std::string &filename, std::ostream &outstream)

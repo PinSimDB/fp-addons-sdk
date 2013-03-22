@@ -26,6 +26,29 @@ namespace ops
 namespace fp
 {
 
+std::string bin_to_hex( const void *inp, unsigned int len )
+{
+    const char *input = (const char *) inp;
+    static const char* const lut = "0123456789ABCDEF";
+    std::string output;
+    output.reserve(3 * len);
+    for (size_t i = 0; i < len; ++i)
+    {
+        const unsigned char c = input[i];
+        output.push_back(lut[c >> 4]);
+        output.push_back(lut[c & 15]);
+        output.push_back(' ');
+    }
+    return output;
+}
+
+
+unsigned int reverse_bytes( const unsigned int v )
+{
+  unsigned char *p = (unsigned char *)&v;
+  unsigned int ret = (p[0]<<0) | (p[1]<<8) | (p[2]<<16) | (p[3]<<24);
+  return ret;
+}
 
 	// TODO : use a map for faster access
 	//http://objectmix.com/c/350233-initializing-map.html
@@ -78,6 +101,9 @@ namespace fp
         case T_CHUNK_RAWDATA :
                             delete (ChunkRawData*) chunk;
                             break;
+        case T_CHUNK_SCRIPT :
+                            delete (ChunkScript*) chunk;
+                            break;
         case T_CHUNK_INT :
                             delete (ChunkInt*) chunk;
                             break;
@@ -98,7 +124,7 @@ namespace fp
                             delete (ChunkString*) chunk;
                             break;
         case T_CHUNK_WSTRING :
-                            delete (ChunkString*) chunk;
+                            delete (ChunkWString*) chunk;
                             break;
         case T_CHUNK_STRINGLIST :
                             {
@@ -137,6 +163,25 @@ namespace fp
 		value = initValue;
 	}
 
+	ChunkScript::ChunkScript(const ChunkDescriptor & initDescriptor) {
+		descriptor = initDescriptor;
+		originalLen = 0;
+		originalChunk = 0;
+		len = 0;
+	}
+	ChunkScript::ChunkScript(uint32_t initOriginalLen, uint32_t initOriginalChunk, const ChunkDescriptor & initDescriptor, const ops::RawData & initValue) {
+		descriptor = initDescriptor;
+
+		originalLen = initOriginalLen;
+		originalChunk = initOriginalChunk;
+		len=originalLen;
+
+		value = initValue;
+   // Decompress
+   ops::RawData *rd = FPBaseHandler::getRawData(initValue.data+4, len-4, true);
+   script = std::string( (char *)rd->data, rd->len );
+   delete rd;
+	}
 
 
 	ChunkString::ChunkString(const ChunkDescriptor & initDescriptor) {
@@ -163,7 +208,7 @@ namespace fp
 		originalChunk = 0;
 		len = 0;
 	}
-	ChunkWString::ChunkWString(uint32_t initOriginalLen, uint32_t initOriginalChunk, const ChunkDescriptor & initDescriptor, const std::string & initValue) {
+	ChunkWString::ChunkWString(uint32_t initOriginalLen, uint32_t initOriginalChunk, const ChunkDescriptor & initDescriptor, const std::wstring & initValue) {
 		descriptor = initDescriptor;
 		originalLen = initOriginalLen;
 		originalChunk = initOriginalChunk;
@@ -390,7 +435,6 @@ void FPBaseHandler::dumpChunks(std::ostream &outstream, ChunkGeneric * chunk, ui
 			dumpChunks(outstream, ((ChunkChunkList*)chunk)->value[i], tabs + 1, showChunk, showType, rawDataLimit);
 		}
 		return;
-		break;
 	case T_CHUNK_GENERIC :
 		if (showType) out << "tag ";
 		out << chunk->descriptor.label;
@@ -410,6 +454,10 @@ void FPBaseHandler::dumpChunks(std::ostream &outstream, ChunkGeneric * chunk, ui
 		if (rawDataLimit != 0)
             ops::tools::dumpHex(out, tabs + 1, ((ChunkRawData*)chunk)->value, limit);
 		}
+		break;
+	case T_CHUNK_SCRIPT :
+		if (showType) out << "script ";
+		out << chunk->descriptor.label << "=" << ((ChunkScript*)chunk)->script;
 		break;
 	case T_CHUNK_INT :
 		if (showType) out << "int ";
@@ -438,8 +486,11 @@ void FPBaseHandler::dumpChunks(std::ostream &outstream, ChunkGeneric * chunk, ui
 		out << chunk->descriptor.label << "=" << ((ChunkString*)chunk)->value;
 		break;
 	case T_CHUNK_WSTRING :
-		if (showType) out << "wstring ";
-		out << chunk->descriptor.label << "=" << ((ChunkString*)chunk)->value;
+		{
+			if (showType) out << "wstring ";
+			std::wstring wide = ((ChunkWString*)chunk)->value;
+			out << chunk->descriptor.label << "=" << std::string( wide.begin(), wide.end() );
+		}
 		break;
 	case T_CHUNK_STRINGLIST :
 		{
@@ -564,18 +615,11 @@ ChunkGeneric * FPBaseHandler::analyseChunk (ChunkChunkList ** result, const std:
 			break;
 		case T_CHUNK_WSTRING :
 			{
-			uint32_t dataLen = *((uint32_t *)data);
-			uint32_t valueLen = dataLen/2;
-			char * value = new char[valueLen];
-			memset(value, 0, valueLen * sizeof(char));
-			for (uint32_t i=0; i<valueLen; i++) {
-				value[i] = *((int16_t *)(data+4+i*2));
-			}
-			chunkBlock = (ChunkGeneric *)new ChunkString(sectionLen, originalChunk, *descriptor, std::string(value, valueLen) );
-            delete [] value;
-			}
+	 		uint32_t dataLen = *((uint32_t *)data);
+			chunkBlock = (ChunkGeneric *)new ChunkWString(sectionLen, originalChunk, *descriptor, std::wstring((const wchar_t*)(data+4), dataLen/sizeof(wchar_t)) );
+           break;
+           }
 
-			break;
 		case T_CHUNK_STRINGLIST :
 			{
 			uint32_t nbItems = *((uint32_t *)data);
@@ -592,19 +636,27 @@ ChunkGeneric * FPBaseHandler::analyseChunk (ChunkChunkList ** result, const std:
 			break;
 		case T_CHUNK_RAWDATA :
 		case T_CHUNK_COLLISIONDATA :
-                                        {
-                                                            ops::RawData *rd = getRawData(data, sectionLen, false);
+     {
+     ops::RawData *rd = getRawData(data, sectionLen, false);
 			chunkBlock = (ChunkGeneric *)new ChunkRawData(sectionLen, originalChunk, *descriptor, *rd);
-                                                            delete rd;
+     delete rd;
 			break;
-                                        }
+     }
+		case T_CHUNK_SCRIPT :
+     {
+     int len = *(int *) data + 4;
+     ops::RawData *rd = getRawData(data, len, false);
+			chunkBlock = (ChunkGeneric *)new ChunkScript(len, originalChunk, *descriptor, *rd);
+     delete rd;
+			break;
+     }
 		default:
-                                        {
-                                                            ops::RawData *rd = getRawData(data, sectionLen, false);
+     {
+     ops::RawData *rd = getRawData(data, sectionLen, false);
 			chunkBlock = (ChunkGeneric *)new ChunkRawData(sectionLen, originalChunk, *descriptor, *rd);
-                                                            delete rd;
+     delete rd;
 			break;
-                                        }
+     }
 		}
 	}
 	if (chunkBlock == NULL) {
@@ -744,6 +796,7 @@ FPMFile * FPMHandler::load(std::string filepath) {
 
     return model;
 }
+
 
 ChunkGeneric * FPMHandler::flexLoad(std::string filepath) {
 	DEBUG << "analysing " + filepath;
@@ -1112,7 +1165,7 @@ ChunkGeneric * FPTHandler::flexLoad(std::string filepath, bool keepPinModelRaw) 
 			break;
 		}
 		delete rawData;
-        delete validRawData; // 08/05/12 Added by SK1
+   delete validRawData; // 08/05/12 Added by SK1
 		chunks->parent = globalChunks;
 		globalChunks->add(chunks);
 	}
@@ -1127,6 +1180,277 @@ ChunkGeneric * FPTHandler::flexLoad(std::string filepath, bool keepPinModelRaw) 
 
 	return (ChunkGeneric *)globalChunks;
 }
+
+
+
+#ifdef _WIN32
+bool FPTHandler::calcMAC( ChunkChunkList *pChunkListP, unsigned char *pszHashBufferP, unsigned long nBufferSizeP )
+{
+  // Reverse engineering 2013 by SK1
+  HCRYPTPROV hProv;
+  HCRYPTHASH hHash;
+  char *pszFP = "Future Pinball (ADVANCED)";
+
+
+  if( !CryptAcquireContext( &hProv, NULL, NULL, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT | CRYPT_NEWKEYSET ) )
+  {
+    return false;
+  }
+
+
+  if( !CryptCreateHash( hProv, CALG_MD2, NULL, NULL, &hHash ) )
+  {
+    return false;
+  }
+
+
+
+  DWORD dwHashSize = 0;
+  DWORD dwSize = sizeof( dwHashSize );
+  CryptGetHashParam(hHash, HP_HASHSIZE, (BYTE *)&dwHashSize, &dwSize, 0 );
+
+  if( nBufferSizeP < dwHashSize )
+    return false;
+
+
+  // Lets go
+  CryptHashData( hHash, (unsigned char *) pszFP, lstrlen( pszFP ), 0  );
+
+  // File Version
+  ChunkChunkList *pV = (ChunkChunkList *) getChunkByLabel( (ChunkChunkList *)pChunkListP, "file_version" );
+  ChunkRawData *pR = (ChunkRawData*) pV->value[0];
+  CryptHashData( hHash, pR->value.data, 4, 0 );
+
+  ULONG lFileVersion = *(ULONG*) pR->value.data;
+
+  ChunkDescriptor HashChunksTable[] = { CHUNK_TABLE_DATA, CHUNK_TABLE_ELEMENT };
+
+  if( lFileVersion < 0x1902 )
+  {
+    for( int c=0; c<sizeof( HashChunksTable ) / sizeof(ChunkDescriptor); c++ )
+    {
+      ChunkChunkList *pList = getChunksByLabel( pChunkListP, HashChunksTable[c].label );
+      if( pList )
+      {
+        int nSize = pList->value.size();
+        for( int i=0; i<nSize; i++ )
+        {
+          cryptChunkList( (ChunkChunkList *)pList->value[i], hHash );
+        }
+      }
+    }
+  }
+  else
+    return false;
+
+  // Done!
+  CryptGetHashParam(hHash, HP_HASHVAL, pszHashBufferP, &dwHashSize, 0 );
+
+  if(hHash)
+    CryptDestroyHash(hHash);
+
+  if(hProv)
+   CryptReleaseContext(hProv,0);
+
+  return true;
+}
+#endif
+
+#ifdef _WIN32
+void FPTHandler::cryptChunkList( ChunkChunkList *pV, HCRYPTHASH hHash )
+{
+  // Reverse engineering by SK1
+  unsigned int nSize = pV->value.size();
+  char szBuffer[200];
+  for( unsigned int i=0; i<nSize; i++ )
+  {
+    ops::fp::ChunkGeneric *pR1 = (ops::fp::ChunkGeneric*) pV->value[i];
+
+
+
+    if( pR1->originalChunk != 0x4F5A4C7A &&
+        pR1->originalChunk != 0x00 )
+    {
+      CryptHashData( hHash, (unsigned char *) &pR1->originalChunk, 4, 0 ); // Element type
+    }
+
+
+    switch( pR1->originalChunk )
+    {
+      case 0:
+        break;
+
+
+      default:
+      {
+        switch( pR1->descriptor.type )
+        {
+          case T_CHUNK_CHUNKLIST:
+          {
+            cryptChunkList( (ChunkChunkList *)pR1, hHash );
+            break;
+          }
+
+          case T_CHUNK_INT:
+          {
+
+            int v = ((ChunkInt*)pR1)->value;                    // 4 Bytes
+            CryptHashData( hHash, (unsigned char *) &v, 4, 0 );
+
+            break;
+          }
+
+          case T_CHUNK_FLOAT:
+          {
+            int v = ((ChunkInt*)pR1)->value;                    // 4 Bytes
+            CryptHashData( hHash, (unsigned char *) &v, 4, 0 );
+
+            break;
+          }
+
+          case T_CHUNK_COLOR:
+          {
+            int v = ((ChunkInt*)pR1)->value;                    // 4 Bytes
+            CryptHashData( hHash, (unsigned char *) &v, 4, 0 );
+
+            break;
+          }
+
+          case T_CHUNK_VALUELIST:
+          {
+            int v = ((ChunkInt*)pR1)->value;                    // 4 Bytes
+            CryptHashData( hHash, (unsigned char *) &v, 4, 0 );
+
+            break;
+          }
+
+
+          case T_CHUNK_STRING:
+          {
+            std::string s = ((ChunkString*)pR1)->value;
+            int nLen = s.length();
+            CryptHashData( hHash, (unsigned char *) &nLen, 4, 0 );
+
+            //char *pS = s.begin();
+            //char *pS = (char *)s.data();
+            //CryptHashData( hHash, (unsigned char *) pS, nLen, 0 );
+
+            CryptHashData( hHash, (unsigned char *) s.data(), nLen, 0 );
+
+            break;
+          }
+
+          case T_CHUNK_WSTRING:
+          {
+            std::wstring s = ((ChunkWString*)pR1)->value;
+            int nLen = s.length()*sizeof(wchar_t);
+            CryptHashData( hHash, (unsigned char *) &nLen, sizeof(nLen), 0 ); // String length
+
+            //char *pS = (char*)s.begin();
+            //char *pS = (char *)s.c_str();
+            //CryptHashData( hHash, (unsigned char *) pS, nLen, 0 );
+            CryptHashData( hHash, (unsigned char *) s.data(), nLen, 0 );
+
+            break;
+          }
+
+          case T_CHUNK_SCRIPT:
+          {
+            ChunkRawData*pR2 = (ChunkRawData*)pR1;
+            unsigned int nLen = pR2->value.len-4;
+            unsigned char *p = pR2->value.data;
+            p += 4;
+
+            if( nLen > 0 )
+            {
+              CryptHashData( hHash, p, nLen, 0 );
+            }
+
+
+            break;
+          }
+
+          case T_CHUNK_RAWDATA:
+          {
+            switch( pR1->originalChunk )
+            {
+              case 0x4F5A4C7A: // LZ0 compressed data
+              case 0xAAADB6AC:
+              {
+
+                ChunkRawData*pR2 = (ChunkRawData*)pR1;
+                int nLen = pR2->value.len;
+                unsigned char *p = pR2->value.data;
+
+                CryptHashData( hHash, p, nLen, 0 );
+
+                break;
+              }
+
+              case 0xBBB1ACBC:
+              {
+                ChunkRawData*pR2 = (ChunkRawData*)pR1;
+                int nLen = pR2->value.len;
+                unsigned char *p = pR2->value.data;
+
+                if( nLen > 0 )
+                {
+                  CryptHashData( hHash, p, 4, 0 );
+
+                  if( nLen > 4 )
+                  {
+                    CryptHashData( hHash, p+4, nLen-4, 0 );
+                  }
+                }
+                break;
+              }
+
+              default:
+              {
+                ChunkRawData*pR2 = (ChunkRawData*)pR1;
+                int nLen = pR2->value.len;
+                unsigned char *p = pR2->value.data;
+
+                if( nLen > 0 )
+                {
+                  CryptHashData( hHash, p, nLen, 0 );
+                }
+
+                break;
+              }
+            }
+            break;
+          }
+
+          case T_CHUNK_VECTOR2D:
+          {
+            Vector2D v = ((ChunkVector2D*)pR1)->value;
+            CryptHashData( hHash, (unsigned char *)&v, 8, 0 );
+
+            break;
+          }
+
+          case T_CHUNK_GENERIC:
+          {
+            switch( pR1->originalChunk )
+            {
+              case 0xBABBB0BD:
+              case 0xA4FDC3E2:
+              {
+
+                break;
+              }
+            }
+
+            break;
+          }
+        }
+      }
+    }
+  }
+}
+#endif
+
 
 FPLHandler::FPLHandler() {
 }
@@ -1190,6 +1514,21 @@ ChunkGeneric * FPLHandler::flexLoad(std::string filepath) {
 
 } // namespace fp
 } // namespace ops
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -6,7 +6,6 @@
 #include <string>
 #include <vector>
 
-
 // gets rid of annoying "deprecated conversion from string constant blah blah" warning
 #pragma GCC diagnostic ignored "-Wwrite-strings"
 
@@ -55,7 +54,10 @@ enum T_CHUNK_TYPE {
   T_CHUNK_STRINGLIST,
   T_CHUNK_VALUELIST,
   // Specific types
-  T_CHUNK_COLLISIONDATA};
+  T_CHUNK_COLLISIONDATA,
+  T_CHUNK_RAWDATALZO, // compressed
+  T_CHUNK_SCRIPT // SK1: Anomalie for table script
+  };
 
 
 class ChunkDescriptor {
@@ -70,7 +72,7 @@ public:
   ChunkDescriptor( )
   {
     chunk = 0;
-    type = T_CHUNK_GENERIC;
+    type = (T_CHUNK_TYPE)0;
     label = "";
     offset = 0;
   }
@@ -141,6 +143,7 @@ struct Vector2D {
 	static ChunkDescriptor CHUNK_STRINGLIST_EMPTY (0x00000000, T_CHUNK_STRINGLIST, "empty", -1);
 	static ChunkDescriptor CHUNK_VALUELIST_EMPTY (0x00000000, T_CHUNK_VALUELIST, "empty", -1, &VL_EMPTY);
 	static ChunkDescriptor CHUNK_COLLISIONDATA_EMPTY (0x00000000, T_CHUNK_COLLISIONDATA, "empty", -1);
+	static ChunkDescriptor CHUNK_SCRIPT_EMPTY (0x00000000, T_CHUNK_SCRIPT, "empty", -1);
 
 
 // Basic classes for chunk handling
@@ -151,6 +154,15 @@ public:
   ChunkRawData( const ChunkDescriptor & initDescriptor = CHUNK_RAWDATA_EMPTY );
   ChunkRawData( uint32_t initOriginalLen, uint32_t initOriginalChunk, const ChunkDescriptor & initDescriptor, const ops::RawData & initValue );
 };
+
+class ChunkScript : public ChunkGeneric {
+public:
+  ops::RawData value;
+  std::string script;
+  ChunkScript( const ChunkDescriptor & initDescriptor = CHUNK_SCRIPT_EMPTY );
+  ChunkScript( uint32_t initOriginalLen, uint32_t initOriginalChunk, const ChunkDescriptor & initDescriptor, const ops::RawData & initValue );
+};
+
 
 class ChunkInt : public ChunkGeneric {
 public:
@@ -189,9 +201,9 @@ public:
 
 class ChunkWString : public ChunkGeneric {
 public:
-  std::string value;
+  std::wstring value;
   ChunkWString( const ChunkDescriptor & initDescriptor = CHUNK_WSTRING_EMPTY );
-  ChunkWString( uint32_t initOriginalLen, uint32_t initOriginalChunk, const ChunkDescriptor & initDescriptor, const std::string & initValue );
+  ChunkWString( uint32_t initOriginalLen, uint32_t initOriginalChunk, const ChunkDescriptor & initDescriptor, const std::wstring & initValue );
 };
 
 class ChunkStringList : public ChunkGeneric {

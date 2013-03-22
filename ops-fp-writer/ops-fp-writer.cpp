@@ -318,29 +318,21 @@ void FPTWriter::saveStringChunk( ops::msole::FileWriter * writer, int32_t handle
   writer->fileWrite( handler, (uint8_t*)msg.c_str(), (uint32_t)sizeof( char ) * msgLen );
 }
 
-void FPTWriter::saveWStringChunk( ops::msole::FileWriter * writer, int32_t handler, uint32_t chunk, std::string msg )
+void FPTWriter::saveWStringChunk( ops::msole::FileWriter * writer, int32_t handler, uint32_t chunk, std::wstring msg )
 {
-
   // save chunk len
-  uint32_t chunkLen =  msg.length() * 2 + 4 + 4;
+  uint32_t chunkLen =  msg.length()*sizeof(wchar_t) + 4 + 4;
   writer->fileWrite( handler, (uint8_t*)&chunkLen, (uint32_t)sizeof( uint32_t ));
 
   // save chunk
   writer->fileWrite( handler, (uint8_t*)&chunk, (uint32_t)sizeof( uint32_t ));
 
   // save nbchar
-  uint32_t msgLen =  msg.length() * 2;
+  uint32_t msgLen =  msg.length()*sizeof(wchar_t);
   writer->fileWrite( handler, (uint8_t*)&msgLen, (uint32_t)sizeof( uint32_t ));
 
   // save chars
-  //writer->fileWrite(handler, (uint8_t*)msg.c_str(), (uint32_t)sizeof(char) * msgLen);
-  for( uint32_t i = 0; i < msg.length(); i++ )
-  {
-    uint8_t tmp = 0;
-    writer->fileWrite( handler, (uint8_t*)msg.c_str() + i, (uint32_t)sizeof( char ));
-    writer->fileWrite( handler, &tmp, (uint32_t)sizeof( char ));
-  }
-
+  writer->fileWrite(handler, (uint8_t*)msg.data(), msg.length()*sizeof(wchar_t));
 }
 
 
@@ -429,18 +421,19 @@ void FPTWriter::saveRawDataChunk( ops::msole::FileWriter * writer, int32_t handl
   if( compressed )
   {
     // save chunk len
-    uint32_t chunkLen =  4 + 4 + 4 + len;
+//    uint32_t chunkLen =  4 + 4 + 4 + len;
+    uint32_t chunkLen =  4 + len;
     writer->fileWrite( handler, (uint8_t*)&chunkLen, (uint32_t)sizeof( uint32_t ));
 
-    // save chunk
+    // save chunk type
     writer->fileWrite( handler, (uint8_t*)&chunk, (uint32_t)sizeof( uint32_t ));
 
     // save zLZO header
-    char header [5] = "zLZO";
-    writer->fileWrite( handler, (uint8_t*)header, (uint32_t)sizeof( uint32_t ));
+//##    char header [5] = "zLZO";
+//##    writer->fileWrite( handler, (uint8_t*)header, (uint32_t)sizeof( uint32_t ));
 
     // save uncompressed len
-    writer->fileWrite( handler, (uint8_t*)&uncompressedLen, (uint32_t)sizeof( uint32_t ));
+//    writer->fileWrite( handler, (uint8_t*)&uncompressedLen, (uint32_t)sizeof( uint32_t ));
 
     // save compressed bytes
     writer->fileWrite( handler, (uint8_t*)value, (uint32_t)sizeof( uint8_t ) * len );
@@ -465,6 +458,8 @@ void FPTWriter::saveRawDataChunk( ops::msole::FileWriter * writer, int32_t handl
 
 void FPTWriter::saveChunk( ops::msole::FileWriter * writer, int32_t handler, ChunkGeneric * chunk )
 {
+  static int nCount =0;
+  nCount++;
   switch( chunk->descriptor.type )
   {
     case T_CHUNK_CHUNKLIST:
@@ -487,7 +482,8 @@ void FPTWriter::saveChunk( ops::msole::FileWriter * writer, int32_t handler, Chu
 
     case T_CHUNK_COLLISIONDATA:
     case T_CHUNK_RAWDATA:
-      saveRawDataChunk( writer, handler, chunk->originalChunk, ((ChunkRawData*)chunk )->value.data, ((ChunkRawData*)chunk )->value.len, false, ((ChunkRawData*)chunk )->value.len );
+//sk1      saveRawDataChunk( writer, handler, chunk->originalChunk, ((ChunkRawData*)chunk )->value.data, ((ChunkRawData*)chunk )->value.len, false, ((ChunkRawData*)chunk )->value.len );
+      saveRawDataChunk( writer, handler, chunk->originalChunk, ((ChunkRawData*)chunk )->value.data, ((ChunkRawData*)chunk )->value.len, ((ChunkRawData*)chunk )->value.ispacked(), ((ChunkRawData*)chunk )->value.len );
       break;
 
     case T_CHUNK_INT:
@@ -534,6 +530,44 @@ void FPTWriter::saveChunk( ops::msole::FileWriter * writer, int32_t handler, Chu
     }
     break;
 
+    case T_CHUNK_SCRIPT:
+    {
+      ChunkScript* s = (ChunkScript*)chunk;
+      if( s->value.len > 4 )
+      {
+        if( memcmp( &s->value.data[4], "zLZO", 4 ) == 0 )
+        {
+          // save chunk len
+          uint32_t chunkLen =  4;
+          writer->fileWrite( handler, (uint8_t*)&chunkLen, (uint32_t)sizeof( uint32_t ));
+
+          // save chunk type
+          writer->fileWrite( handler, (uint8_t*)&chunk->originalChunk, (uint32_t)sizeof( uint32_t ));
+
+          // save compressed len
+          uint32_t len = s->value.len-4;
+          writer->fileWrite( handler, (uint8_t*)&len, (uint32_t)sizeof( uint32_t ));
+
+          // save compressed bytes
+          writer->fileWrite( handler, (uint8_t*)&s->value.data[4], (uint32_t) s->value.len-4 );
+
+          break;
+        }
+      }
+
+      // save chunk len
+      uint32_t chunkLen =  4;
+      writer->fileWrite( handler, (uint8_t*)&chunkLen, (uint32_t)sizeof( uint32_t ));
+
+      // save chunk
+      writer->fileWrite( handler, (uint8_t*)&chunk->originalChunk, (uint32_t)sizeof( uint32_t ));
+
+      // save uncompressed bytes
+      writer->fileWrite( handler, (uint8_t*)s->value.data, (uint32_t)s->value.len );
+
+      break;
+    }
+
     default:
       std::cout << " TODO " << std::endl;
       break;
@@ -559,9 +593,16 @@ void FPTWriter::flexSave( std::string filepath, ChunkChunkList * globalChunks )
   {
     int32_t handler = writer->fileOpen( "Future Pinball/Table MAC" );
 
-    ChunkChunkList * chunks = (ChunkChunkList*)getChunkByLabel( globalChunks, CHUNK_TABLE_MAC.label );
+	#ifdef _WIN32
+	ops::RawData dataMAC(16, true);
+	calcMAC(globalChunks, dataMAC.data, dataMAC.len);
+	writer->fileWrite( handler, &dataMAC );
+    #else
+    WARNING << "Can't rebuild table MAC"
+	ChunkChunkList * chunks = (ChunkChunkList*)getChunkByLabel( globalChunks, CHUNK_TABLE_MAC.label );
     ChunkRawData * chunkRawData = (ChunkRawData*)getChunkByLabel( chunks, CHUNK_TABLE_MAC_DATA.label );
     writer->fileWrite( handler, &chunkRawData->value );
+    #endif
 
     writer->fileClose( handler );
   }
@@ -705,3 +746,7 @@ void FPTWriter::flexSave( std::string filepath, ChunkChunkList * globalChunks )
 
 } // namespace fp
 } // namespace ops
+
+
+
+

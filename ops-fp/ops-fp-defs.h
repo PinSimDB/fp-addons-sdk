@@ -5,6 +5,8 @@
 #include <stdint.h>
 #include <string>
 #include <vector>
+#include <cstddef>
+
 
 // ops-msole
 #include "ops-msole.h"
@@ -19,6 +21,11 @@ namespace fp
 {
 
 #define ARRAY2VECTOR( T, NAME ) std::vector <T> NAME( NAME ## _ARRAY, NAME ## _ARRAY + sizeof( NAME ## _ARRAY ) / sizeof( T ))
+
+
+
+
+
 
 
 // FP definition
@@ -204,9 +211,10 @@ static ChunkDescriptor CHUNKS_TABLE_ARRAY[] =
   ChunkDescriptor( 0x95F5C9D2, T_CHUNK_INT,    "unknown_12", -1 ),
   ChunkDescriptor( 0x95F5C6D2, T_CHUNK_INT,    "unknown_13", -1 ),
   ChunkDescriptor( 0x9BFBCED2, T_CHUNK_INT,    "unknown_14", -1 ),
-  ChunkDescriptor( 0xA4FDC3E2, T_CHUNK_GENERIC,  "unknown_15", -1 ),
+//SK1  ChunkDescriptor( 0xA4FDC3E2, T_CHUNK_GENERIC,  "unknown_15", -1 ),
+  ChunkDescriptor( 0xA4FDC3E2, T_CHUNK_SCRIPT,  "script", -1 ),   //
 
-  ChunkDescriptor( 0x4F5A4C7A, T_CHUNK_RAWDATA,  "script", -1 ),
+//SK1  ChunkDescriptor( 0x4F5A4C7A, T_CHUNK_RAWDATA,  "script", -1 ),
 
   ChunkDescriptor( 0x91FBCCD6, T_CHUNK_FLOAT,    "translate_x", -1 ),
   ChunkDescriptor( 0x90FBCCD6, T_CHUNK_FLOAT,    "translate_y", -1 ),

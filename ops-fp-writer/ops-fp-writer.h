@@ -48,7 +48,7 @@ protected:
 
   void saveVector2DChunk( ops::msole::FileWriter * writer, int32_t handler, uint32_t chunk, Vector2D value );
   void saveStringChunk( ops::msole::FileWriter * writer, int32_t handler, uint32_t chunk, std::string msg );
-  void saveWStringChunk( ops::msole::FileWriter * writer, int32_t handler, uint32_t chunk, std::string msg );
+  void saveWStringChunk( ops::msole::FileWriter * writer, int32_t handler, uint32_t chunk, std::wstring msg );
   void saveUInt32Chunk( ops::msole::FileWriter * writer, int32_t handler, uint32_t chunk, uint32_t value );
   void saveTagChunk( ops::msole::FileWriter * writer, int32_t handler, uint32_t chunk );
   void saveFloatChunk( ops::msole::FileWriter * writer, int32_t handler, uint32_t chunk, float value );

@@ -17,8 +17,8 @@
 #include <sys/types.h>
 
 // libops
-#include "ops-log.h"
 #include "ops-fp.h"
+#include "ops-log.h"
 #include "ops-files.h"
 
 std::string getPath(std::string &outdir, ops::fp::ChunkString * nameChunk, std::string ext)

@@ -28,6 +28,7 @@ namespace ops
 		RawData & operator=(const RawData & rd);
 		~RawData();
 
+   bool ispacked();
 		RawData * packLZO();
 		RawData * unpackLZO();
 	};

@@ -12,10 +12,11 @@
 #include <fstream>
 
 // libops
-#include "ops-log.h"
 #include "ops-fp.h"
+#include "ops-log.h"
 #include "ops-fp-writer.h"
 #include "ops-files.h"
+#include "ops-tools.h"
 
 void patchFPT(ops::files::ConfigManager &config, std::string &inputFile, std::string &outputFile)
 {
@@ -31,6 +32,17 @@ void patchFPT(ops::files::ConfigManager &config, std::string &inputFile, std::st
 	ops::fp::ChunkChunkList * chunks = (ops::fp::ChunkChunkList *)handler->flexLoad(inputFile);
 
     // Change chunks values :)
+
+	// rebuild table mac (win32 only)
+	#ifdef _WIN32
+	ops::RawData data(16, true);
+	handler->calcMAC(chunks, data.data, data.len);
+
+	std::ostringstream out;
+	ops::tools::dumpHex(out, 1, data, 16);
+	std::cout << "COMPUTED MAC : " << std::endl;
+	std::cout << out.str() << std::endl;
+	#endif
 
     handler->flexSave(outputFile, chunks);
 

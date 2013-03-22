@@ -94,9 +94,20 @@ namespace ops
 		}
 	}
 
+ bool RawData::ispacked()
+ {
+   if( len < 4 )
+     return false;
+   if (data[0] == 'z' && data[1] == 'L' && data[2] == 'Z' && data[3] == 'O')
+     return true;
+   else
+     return false;
+ }
+
+
     RawData * RawData::packLZO()
     {
-        if (data[0] == 'z' && data[1] == 'L' && data[2] == 'Z' && data[3] == 'O') {
+        if (ispacked()) {
             // already packed
 			return new ops::RawData(len, data);
         }
@@ -124,7 +135,7 @@ namespace ops
 
 	RawData * RawData::unpackLZO()
 	{
-        if (data[0] == 'z' && data[1] == 'L' && data[2] == 'Z' && data[3] == 'O') {
+        if (ispacked()) {
             // Decompress if 'zLZO'
 			ops::RawData * value = new ops::RawData();
             uint32_t rawLen;
