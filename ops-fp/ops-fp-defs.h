@@ -299,7 +299,7 @@ static ChunkDescriptor CHUNKS_ELEMENT_4_ARRAY[] =
   ChunkDescriptor( 0x9BFCCFCF, T_CHUNK_VECTOR2D,  "texture_position", -1 ),
   ChunkDescriptor( 0x9BFCCFDD, T_CHUNK_VECTOR2D,  "halo_position", -1 ),
   ChunkDescriptor( 0x96F3CDD9, T_CHUNK_STRING,  "lens_texture", -1 ),
-  ChunkDescriptor( 0xB9ADAAAD, T_CHUNK_STRING,  "surface", -1 ),
+  ChunkDescriptor( 0xA3EFBDD2, T_CHUNK_STRING,  "surface", -1 ),
   ChunkDescriptor( 0x9DF2CFD9, T_CHUNK_COLOR,    "lit_color", -1 ),
   ChunkDescriptor( 0xA6ECBFE4, T_CHUNK_INT,    "auto_set_unlit_color", -1 ),
   ChunkDescriptor( 0x9DF2CFD0, T_CHUNK_COLOR,    "unlit_color", -1 ),
@@ -1159,6 +1159,7 @@ static ChunkDescriptor CHUNKS_ELEMENT_56_ARRAY[] =
 {
   ChunkDescriptor( 0xA4F4D1D7, T_CHUNK_WSTRING,  "name", -1 ),
   ChunkDescriptor( 0x9BFCCFCF, T_CHUNK_VECTOR2D,  "position", -1 ),
+  ChunkDescriptor( 0xA3EFBDD2, T_CHUNK_STRING,  "surface", -1 ),  
   ChunkDescriptor( 0x9DFDC3D8, T_CHUNK_STRING,  "model", -1 ),
   ChunkDescriptor( 0xA300C5DC, T_CHUNK_STRING,  "texture", -1 ),
   ChunkDescriptor( 0x97F5C3E2, T_CHUNK_COLOR,    "color", -1 ),
