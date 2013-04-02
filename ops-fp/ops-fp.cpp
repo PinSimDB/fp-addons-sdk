@@ -901,7 +901,9 @@ ChunkGeneric * FPTHandler::flexLoad(std::string filepath, bool keepPinModelRaw) 
 
 		ops::RawData * rawData = reader->readAll(filename);
 		ChunkChunkList * chunks = new ChunkChunkList(CHUNK_FILE_VERSION);
-		chunks->add((ChunkGeneric*)new ChunkRawData(rawData->len, 0, CHUNK_FILE_VERSION_DATA, *rawData));
+    ChunkGeneric* chunk;
+    chunk = (ChunkGeneric*)new ChunkRawData(rawData->len, 0, CHUNK_FILE_VERSION_DATA, *rawData);
+		chunks->add(chunk);
 		delete rawData;
 		chunks->parent = globalChunks;
 		globalChunks->add(chunks);
@@ -911,7 +913,9 @@ ChunkGeneric * FPTHandler::flexLoad(std::string filepath, bool keepPinModelRaw) 
 
 		ops::RawData * rawData = reader->readAll(filename);
 		ChunkChunkList * chunks = new ChunkChunkList(CHUNK_TABLE_MAC);
-		chunks->add((ChunkGeneric*)new ChunkRawData(rawData->len, 0, CHUNK_TABLE_MAC_DATA, *rawData));
+    ChunkGeneric* chunk;
+    chunk = (ChunkGeneric*)new ChunkRawData(rawData->len, 0, CHUNK_TABLE_MAC_DATA, *rawData);
+		chunks->add(chunk);
 		delete rawData;
 		chunks->parent = globalChunks;
 		globalChunks->add(chunks);
@@ -1198,7 +1202,7 @@ bool FPTHandler::calcMAC( ChunkChunkList *pChunkListP, unsigned char *pszHashBuf
   }
 
 
-  if( !CryptCreateHash( hProv, CALG_MD2, NULL, NULL, &hHash ) )
+  if( !CryptCreateHash( hProv, CALG_MD2, (HCRYPTKEY)NULL, (DWORD)NULL, &hHash ) )
   {
     return false;
   }
@@ -1227,7 +1231,7 @@ bool FPTHandler::calcMAC( ChunkChunkList *pChunkListP, unsigned char *pszHashBuf
 
   if( lFileVersion < 0x1902 )
   {
-    for( int c=0; c<sizeof( HashChunksTable ) / sizeof(ChunkDescriptor); c++ )
+    for( unsigned int c=0; c<sizeof( HashChunksTable ) / sizeof(ChunkDescriptor); c++ )
     {
       ChunkChunkList *pList = getChunksByLabel( pChunkListP, HashChunksTable[c].label );
       if( pList )
@@ -1261,7 +1265,6 @@ void FPTHandler::cryptChunkList( ChunkChunkList *pV, HCRYPTHASH hHash )
 {
   // Reverse engineering by SK1
   unsigned int nSize = pV->value.size();
-  char szBuffer[200];
   for( unsigned int i=0; i<nSize; i++ )
   {
     ops::fp::ChunkGeneric *pR1 = (ops::fp::ChunkGeneric*) pV->value[i];
@@ -1323,7 +1326,6 @@ void FPTHandler::cryptChunkList( ChunkChunkList *pV, HCRYPTHASH hHash )
 
             break;
           }
-
 
           case T_CHUNK_STRING:
           {
@@ -1444,6 +1446,14 @@ void FPTHandler::cryptChunkList( ChunkChunkList *pV, HCRYPTHASH hHash )
 
             break;
           }
+
+          case T_CHUNK_STRINGLIST: // missing path ?
+          case T_CHUNK_COLLISIONDATA: // missing path ?
+          case T_CHUNK_RAWDATALZO: // missing path ?
+          default:
+          {
+            ;
+          }
         }
       }
     }
@@ -1476,27 +1486,33 @@ ChunkGeneric * FPLHandler::flexLoad(std::string filepath) {
         if (nameSplitted.size() == 1)
         {
             ChunkChunkList * chunks = new ChunkChunkList(CHUNK_RESOURCE);
+            ChunkGeneric* chunk;
 
-            chunks->add((ChunkGeneric*)new ChunkString(0, 0, CHUNK_RESOURCE_NAME, name));
+            chunk = (ChunkGeneric*)new ChunkString(0, 0, CHUNK_RESOURCE_NAME, name);
+            chunks->add(chunk);
 
             std::string fileFTYP = name + "/FTYP";
             ops::RawData * rawDataFTYP = reader->readAll(fileFTYP);
-            chunks->add((ChunkGeneric*)new ChunkInt(rawDataFTYP->len, 0, CHUNK_RESOURCE_TYPE, *((uint32_t *)rawDataFTYP->data)));
+            chunk = (ChunkGeneric*)new ChunkInt(rawDataFTYP->len, 0, CHUNK_RESOURCE_TYPE, *((uint32_t *)rawDataFTYP->data));
+            chunks->add(chunk);
             delete rawDataFTYP;
 
             std::string fileFPAT = name + "/FPAT";
             ops::RawData * rawDataFPAT = reader->readAll(fileFPAT);
-            chunks->add((ChunkGeneric*)new ChunkString(rawDataFPAT->len, 0, CHUNK_RESOURCE_PATH, std::string((const char*)(rawDataFPAT->data), rawDataFPAT->len)));
+            chunk = (ChunkGeneric*)new ChunkString(rawDataFPAT->len, 0, CHUNK_RESOURCE_PATH, std::string((const char*)(rawDataFPAT->data), rawDataFPAT->len));
+            chunks->add(chunk);
             delete rawDataFPAT;
 
             std::string fileFDAT = name + "/FDAT";
             ops::RawData * rawDataFDAT = reader->readAll(fileFDAT);
-            chunks->add((ChunkGeneric*)new ChunkRawData(rawDataFDAT->len, 0, CHUNK_RESOURCE_DATA, *rawDataFDAT));
+            chunk = (ChunkGeneric*)new ChunkRawData(rawDataFDAT->len, 0, CHUNK_RESOURCE_DATA, *rawDataFDAT);
+            chunks->add(chunk);
             delete rawDataFDAT;
 
             std::string fileFLAD = name + "/FLAD";
             ops::RawData * rawDataFLAD = reader->readAll(fileFLAD);
-            chunks->add((ChunkGeneric*)new ChunkRawData(rawDataFLAD->len, 0, CHUNK_RESOURCE_FLAD, *rawDataFLAD));
+            chunk = (ChunkGeneric*)new ChunkRawData(rawDataFLAD->len, 0, CHUNK_RESOURCE_FLAD, *rawDataFLAD);
+            chunks->add(chunk);
             delete rawDataFLAD;
 
             globalChunks->add(chunks);

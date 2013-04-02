@@ -28,10 +28,20 @@ void patchFPT(ops::files::ConfigManager &config, std::string &inputFile, std::st
     bool showId = (cfg_id == 1);
     bool showType = (cfg_type == 1);
 */
-	ops::fp::FPTWriter * handler = new ops::fp::FPTWriter();
-	ops::fp::ChunkChunkList * chunks = (ops::fp::ChunkChunkList *)handler->flexLoad(inputFile);
+    ops::fp::FPTWriter* handler = new ops::fp::FPTWriter();
+    ops::fp::ChunkChunkList* chunks = (ops::fp::ChunkChunkList *)handler->flexLoad(inputFile);
+
+    ops::fp::ChunkInt* count_table_elements = (ops::fp::ChunkInt*) handler->getChunk(chunks, "table.table_data.count_table_elements");
+    ops::fp::ChunkInt* count_images = (ops::fp::ChunkInt*) handler->getChunk(chunks, "table.table_data.count_images");
+    ops::fp::ChunkInt* count_sounds = (ops::fp::ChunkInt*) handler->getChunk(chunks, "table.table_data.count_sounds");
+    ops::fp::ChunkInt* count_musics = (ops::fp::ChunkInt*) handler->getChunk(chunks, "table.table_data.count_musics");
+    ops::fp::ChunkInt* count_pin_models = (ops::fp::ChunkInt*) handler->getChunk(chunks, "table.table_data.count_pin_models");
+    ops::fp::ChunkInt* count_image_lists = (ops::fp::ChunkInt*) handler->getChunk(chunks, "table.table_data.count_image_lists");
+    ops::fp::ChunkInt* count_light_lists = (ops::fp::ChunkInt*) handler->getChunk(chunks, "table.table_data.count_light_lists");
+    ops::fp::ChunkInt* count_dmd_fonts = (ops::fp::ChunkInt*) handler->getChunk(chunks, "table.table_data.count_dmd_fonts");
 
     // Change chunks values :)
+	// Don't forget to change above counters if you add some elements.
 
 	// rebuild table mac (win32 only)
 	#ifdef _WIN32
@@ -46,7 +56,7 @@ void patchFPT(ops::files::ConfigManager &config, std::string &inputFile, std::st
 
     handler->flexSave(outputFile, chunks);
 
-	delete chunks;
+    delete chunks;
     delete handler;
     INFO << "done";
 }
@@ -65,7 +75,7 @@ int main (int argc, char *argv[])
     std::replace(inputfile.begin(), inputfile.end(), '\\', '/');
 
 
-    std::string outputFile = inputfile + ".patch";
+    std::string outputFile = inputfile + ".patch.fpt";
 
 
 

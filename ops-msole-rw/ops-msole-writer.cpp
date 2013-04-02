@@ -161,7 +161,7 @@ int32_t FileWriterI::fileOpen(std::string inpath) {
 }
 
 uint32_t FileWriterI::fileWrite(int32_t handler, uint8_t * data, uint32_t len) {
-    if (handler >=0 && handler < openFileHandler.size()) {
+    if (handler >=0 && handler < (int32_t)openFileHandler.size()) {
         GsfOutput * output = openFileHandler[handler];
 
         if (output->is_closed) {
@@ -187,7 +187,7 @@ uint32_t FileWriterI::fileWrite(int32_t handler, uint8_t * data, uint32_t len) {
 }
 
 uint32_t FileWriterI::fileClose(int32_t handler) {
-    if (handler >=0 && handler < openFileHandler.size()) {
+    if (handler >=0 && handler < (int32_t)openFileHandler.size()) {
         GsfOutput * output = openFileHandler[handler];
 
         gsf_output_close (output);
