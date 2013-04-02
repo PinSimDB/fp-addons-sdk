@@ -203,19 +203,19 @@ static ChunkDescriptor CHUNKS_TABLE_ARRAY[] =
   ChunkDescriptor( 0xA4FBBFDC, T_CHUNK_STRING,  "special_score_text", -1 ),
 
   ChunkDescriptor( 0xA4F4D1D7, T_CHUNK_WSTRING,  "table_element_name", -1 ),
-  ChunkDescriptor( 0x95FDCDD2, T_CHUNK_INT,    "unknown_7", -1 ),
-  ChunkDescriptor( 0xA2F4C9D2, T_CHUNK_INT,    "unknown_8", -1 ),
-  ChunkDescriptor( 0xA5F3BFD2, T_CHUNK_INT,    "unknown_9", -1 ),
-  ChunkDescriptor( 0x96ECC5D2, T_CHUNK_INT,    "unknown_10", -1 ),
-  ChunkDescriptor( 0xA5F2C5D2, T_CHUNK_INT,    "unknown_11", -1 ),
-  ChunkDescriptor( 0x95F5C9D2, T_CHUNK_INT,    "unknown_12", -1 ),
-  ChunkDescriptor( 0x95F5C6D2, T_CHUNK_INT,    "unknown_13", -1 ),
+  
+  ChunkDescriptor( 0x95FDCDD2, T_CHUNK_INT,    "count_table_elements", -1 ),
+  ChunkDescriptor( 0xA2F4C9D2, T_CHUNK_INT,    "count_images", -1 ),
+  ChunkDescriptor( 0xA5F3BFD2, T_CHUNK_INT,    "count_sounds", -1 ),
+  ChunkDescriptor( 0x96ECC5D2, T_CHUNK_INT,    "count_musics", -1 ),
+  ChunkDescriptor( 0xA5F2C5D2, T_CHUNK_INT,    "count_pin_models", -1 ),
+  ChunkDescriptor( 0x95F5C9D2, T_CHUNK_INT,    "count_image_lists", -1 ),
+  ChunkDescriptor( 0x95F5C6D2, T_CHUNK_INT,    "count_light_lists", -1 ),
+  ChunkDescriptor( 0x9BFBCED2, T_CHUNK_INT,    "count_dmd_fonts", -1 ),  
   ChunkDescriptor( 0x9BFBCED2, T_CHUNK_INT,    "unknown_14", -1 ),
 //SK1  ChunkDescriptor( 0xA4FDC3E2, T_CHUNK_GENERIC,  "unknown_15", -1 ),
   ChunkDescriptor( 0xA4FDC3E2, T_CHUNK_SCRIPT,  "script", -1 ),   //
-
 //SK1  ChunkDescriptor( 0x4F5A4C7A, T_CHUNK_RAWDATA,  "script", -1 ),
-
   ChunkDescriptor( 0x91FBCCD6, T_CHUNK_FLOAT,    "translate_x", -1 ),
   ChunkDescriptor( 0x90FBCCD6, T_CHUNK_FLOAT,    "translate_y", -1 ),
   ChunkDescriptor( 0x9200CFD2, T_CHUNK_FLOAT,    "scale_x", -1 ),
