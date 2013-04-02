@@ -111,6 +111,56 @@ public:
       uint32_t len;
       ChunkGeneric( const ChunkDescriptor & initDescriptor = CHUNK_GENERIC_EMPTY );
       ChunkGeneric( uint32_t initOriginalLen, uint32_t initOriginalChunk, const ChunkDescriptor & initDescriptor );
+
+      virtual ~ChunkGeneric() {};
+      virtual void ShowXmlLike() {
+        ShowXmlLikeTagBegin();
+        ShowXmlLikeTagEndTiny();
+      };
+
+    protected:
+      virtual void ShowXmlLikeTagName() { std::cout << "ChunkGeneric"; }
+      void ShowXmlLikePadding() { std::cout.width(showXmlLikeLevel); }
+
+      void ShowXmlLikeTagBegin()
+      {
+        ShowXmlLikePadding();
+        std::cout << "<";
+        ShowXmlLikeTagName();
+        std::cout << " ";
+        ShowXmlLikeData();
+        ShowXmlLikeInc();
+      }
+
+      void ShowXmlLikeTagEndTiny()
+      {
+        std::cout << "/>" << std::endl;
+        ShowXmlLikeDec();
+      }
+
+      void ShowXmlLikeTagEnd()
+      {
+        std::cout << "</";
+        ShowXmlLikeTagName();
+        std::cout << ">" << std::endl;
+        ShowXmlLikeDec();
+      }
+
+      void ShowXmlLikeData() {
+          std::cout << "Name=\"" << descriptor.label << "\" ";
+#ifdef _DEBUG
+          std::cout << "descriptorType=\"" << descriptor.type << "\" ";
+          std::cout << "descriptorOffset=\"" << descriptor.offset << "\" ";
+          std::cout << "originalLen=\"" << originalLen << "\" ";
+          std::cout << "originalChunk=\"0x" << std::hex << std::uppercase << originalChunk << std::dec << std::nouppercase << "\" ";
+          std::cout << "len=\"" << len << "\" ";
+#endif
+      };
+
+    private:
+      static int showXmlLikeLevel;
+      void ShowXmlLikeInc() { ++showXmlLikeLevel; }
+      void ShowXmlLikeDec() { --showXmlLikeLevel; }
 };
 
 
@@ -124,12 +174,27 @@ public:
       ChunkChunkList( uint32_t initOriginalLen, uint32_t initOriginalChunk, const ChunkDescriptor & initDescriptor, const std::vector <ChunkGeneric *> & initValue );
       ~ChunkChunkList();
       void add( ChunkGeneric * child );
+      virtual void ShowXmlLikeTagName() { std::cout << "ChunkChunkList"; }
+      virtual void ShowXmlLike() {
+        ShowXmlLikeTagBegin();
+        std::cout << ">" << std::endl;
+        for (int i=0; i<(int)value.size(); ++i)
+          value[i]->ShowXmlLike();
+        ShowXmlLikePadding();
+        ShowXmlLikeTagEnd();
+      };
 };
 
 
 struct Vector2D {
   float x, y;
   Vector2D( float initX = 0.0f, float initY = 0.0f );
+  void ShowXmlLike() {
+    std::cout << "<Vector2D ";
+    std::cout << "x=\"" << x << "\" ";
+    std::cout << "y=\"" << y << "\" ";
+    std::cout << "/>";
+  }
 };
 
 
@@ -153,6 +218,13 @@ public:
   ops::RawData value;
   ChunkRawData( const ChunkDescriptor & initDescriptor = CHUNK_RAWDATA_EMPTY );
   ChunkRawData( uint32_t initOriginalLen, uint32_t initOriginalChunk, const ChunkDescriptor & initDescriptor, const ops::RawData & initValue );
+  virtual void ShowXmlLikeTagName() { std::cout << "ChunkRawData"; }
+  virtual void ShowXmlLike() {
+    ShowXmlLikeTagBegin();
+    std::cout << ">";
+    std::cout << "...";
+    ShowXmlLikeTagEnd();
+  };
 };
 
 class ChunkScript : public ChunkGeneric {
@@ -161,6 +233,13 @@ public:
   std::string script;
   ChunkScript( const ChunkDescriptor & initDescriptor = CHUNK_SCRIPT_EMPTY );
   ChunkScript( uint32_t initOriginalLen, uint32_t initOriginalChunk, const ChunkDescriptor & initDescriptor, const ops::RawData & initValue );
+  virtual void ShowXmlLikeTagName() { std::cout << "ChunkScript"; }
+  virtual void ShowXmlLike() {
+    ShowXmlLikeTagBegin();
+    std::cout << ">";
+    std::cout << "...";
+    ShowXmlLikeTagEnd();
+  };
 };
 
 
@@ -169,6 +248,13 @@ public:
   int32_t value;
   ChunkInt( const ChunkDescriptor & initDescriptor = CHUNK_INT_EMPTY );
   ChunkInt( uint32_t initOriginalLen, uint32_t initOriginalChunk, const ChunkDescriptor & initDescriptor, const int32_t & initValue );
+  virtual void ShowXmlLikeTagName() { std::cout << "ChunkInt"; }
+  virtual void ShowXmlLike() {
+    ShowXmlLikeTagBegin();
+    std::cout << ">";
+    std::cout << value;
+    ShowXmlLikeTagEnd();
+  };
 };
 
 class ChunkFloat : public ChunkGeneric {
@@ -176,6 +262,13 @@ public:
   float value;
   ChunkFloat( const ChunkDescriptor & initDescriptor = CHUNK_FLOAT_EMPTY );
   ChunkFloat( uint32_t initOriginalLen, uint32_t initOriginalChunk, const ChunkDescriptor & initDescriptor, const float & initValue );
+  virtual void ShowXmlLikeTagName() { std::cout << "ChunkFloat"; }
+  virtual void ShowXmlLike() {
+    ShowXmlLikeTagBegin();
+    std::cout << ">";
+    std::cout << value;
+    ShowXmlLikeTagEnd();
+  };
 };
 
 class ChunkColor : public ChunkGeneric {
@@ -183,6 +276,13 @@ public:
   int32_t value;
   ChunkColor( const ChunkDescriptor & initDescriptor = CHUNK_COLOR_EMPTY );
   ChunkColor( uint32_t initOriginalLen, uint32_t initOriginalChunk, const ChunkDescriptor & initDescriptor, const int32_t & initValue );
+  virtual void ShowXmlLikeTagName() { std::cout << "ChunkColor"; }
+  virtual void ShowXmlLike() {
+    ShowXmlLikeTagBegin();
+    std::cout << ">0x";
+    std::cout << std::hex << std::uppercase << value << std::dec << std::nouppercase;
+    ShowXmlLikeTagEnd();
+  };
 };
 
 class ChunkVector2D : public ChunkGeneric {
@@ -190,6 +290,13 @@ public:
   Vector2D value;
   ChunkVector2D( const ChunkDescriptor & initDescriptor = CHUNK_VECTOR2D_EMPTY );
   ChunkVector2D( uint32_t initOriginalLen, uint32_t initOriginalChunk, const ChunkDescriptor & initDescriptor, const Vector2D & initValue );
+  virtual void ShowXmlLikeTagName() { std::cout << "ChunkVector2D"; }
+  virtual void ShowXmlLike() {
+    ShowXmlLikeTagBegin();
+    std::cout << ">";
+    value.ShowXmlLike();
+    ShowXmlLikeTagEnd();
+  };
 };
 
 class ChunkString : public ChunkGeneric {
@@ -197,6 +304,13 @@ public:
   std::string value;
   ChunkString( const ChunkDescriptor & initDescriptor = CHUNK_STRING_EMPTY );
   ChunkString( uint32_t initOriginalLen, uint32_t initOriginalChunk, const ChunkDescriptor & initDescriptor, const std::string & initValue );
+  virtual void ShowXmlLikeTagName() { std::cout << "ChunkString"; }
+  virtual void ShowXmlLike() {
+    ShowXmlLikeTagBegin();
+    std::cout << ">";
+    std::cout << value;
+    ShowXmlLikeTagEnd();
+  };
 };
 
 class ChunkWString : public ChunkGeneric {
@@ -204,6 +318,13 @@ public:
   std::wstring value;
   ChunkWString( const ChunkDescriptor & initDescriptor = CHUNK_WSTRING_EMPTY );
   ChunkWString( uint32_t initOriginalLen, uint32_t initOriginalChunk, const ChunkDescriptor & initDescriptor, const std::wstring & initValue );
+  virtual void ShowXmlLikeTagName() { std::cout << "ChunkWString"; }
+  virtual void ShowXmlLike() {
+    ShowXmlLikeTagBegin();
+    std::cout << ">";
+    std::wcout << value;
+    ShowXmlLikeTagEnd();
+  };
 };
 
 class ChunkStringList : public ChunkGeneric {
@@ -211,6 +332,15 @@ public:
   std::vector <std::string> value;
   ChunkStringList( const ChunkDescriptor & initDescriptor = CHUNK_STRINGLIST_EMPTY );
   ChunkStringList( uint32_t initOriginalLen, uint32_t initOriginalChunk, const ChunkDescriptor & initDescriptor, const std::vector <std::string> & initValue );
+  virtual void ShowXmlLikeTagName() { std::cout << "ChunkStringList"; }
+  virtual void ShowXmlLike() {
+    ShowXmlLikeTagBegin();
+    std::cout << ">";
+    for (int i=0; i<(int)value.size(); ++i)
+      std::cout << value[i] << std::endl;
+    ShowXmlLikePadding();
+    ShowXmlLikeTagEnd();
+  };
 };
 
 class ChunkValueList : public ChunkGeneric {
@@ -218,6 +348,13 @@ public:
   int32_t value;
   ChunkValueList( const ChunkDescriptor & initDescriptor = CHUNK_INT_EMPTY );
   ChunkValueList( uint32_t initOriginalLen, uint32_t initOriginalChunk, const ChunkDescriptor & initDescriptor, const int32_t & initValue );
+  virtual void ShowXmlLikeTagName() { std::cout << "ChunkValueList"; }
+  virtual void ShowXmlLike() {
+    ShowXmlLikeTagBegin();
+    std::cout << ">";
+    std::cout << value;
+    ShowXmlLikeTagEnd();
+  };
 };
 
 
@@ -236,6 +373,15 @@ public:
   std::vector <FPModelCollisionData> value;
   ChunkCollisionData( const ChunkDescriptor & initDescriptor = CHUNK_COLLISIONDATA_EMPTY );
   ChunkCollisionData( uint32_t initOriginalLen, uint32_t initOriginalChunk, const ChunkDescriptor & initDescriptor, const std::vector <FPModelCollisionData> & initValue );
+  virtual void ShowXmlLikeTagName() { std::cout << "ChunkCollisionData"; }
+  virtual void ShowXmlLike() {
+    ShowXmlLikeTagBegin();
+    std::cout << ">";
+    for (int i=0; i<(int)value.size(); ++i)
+      std::cout << ".";
+    ShowXmlLikePadding();
+    ShowXmlLikeTagEnd();
+  };
 };
 
 

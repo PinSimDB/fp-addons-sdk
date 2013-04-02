@@ -53,7 +53,7 @@ unsigned int reverse_bytes( const unsigned int v )
 	// TODO : use a map for faster access
 	//http://objectmix.com/c/350233-initializing-map.html
 
-
+  int ChunkGeneric::showXmlLikeLevel = 0;
 	ChunkGeneric::ChunkGeneric(const ChunkDescriptor & initDescriptor) {
 		descriptor = initDescriptor;
 		originalLen = 0;
@@ -696,6 +696,7 @@ void FPBaseHandler::analyseRawData(ChunkChunkList * result, const std::vector<Ch
 
 		// Get calculated len because of light/image list anomaly ...
 		offset += chunkBlock->len;
+
 	}
 }
 
@@ -925,6 +926,7 @@ ChunkGeneric * FPTHandler::flexLoad(std::string filepath, bool keepPinModelRaw) 
 
 		ops::RawData * rawData = reader->readAll(filename);
 		ChunkChunkList * chunks = new ChunkChunkList(CHUNK_TABLE_DATA);
+    ChunkGeneric* chunk;
 		analyseRawData(chunks, CHUNKS_TABLE, rawData);
 		delete rawData;
 		chunks->parent = globalChunks;
