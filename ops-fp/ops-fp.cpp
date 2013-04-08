@@ -177,11 +177,59 @@ unsigned int reverse_bytes( const unsigned int v )
 		len=originalLen;
 
 		value = initValue;
+	}
+ ChunkScript::~ChunkScript()
+ {
+ }
+
+
+ ChunkScript::operator std::string()
+ {
+   std::string s;
+
    // Decompress
-   ops::RawData *rd = FPBaseHandler::getRawData(initValue.data+4, len-4, true);
-   script = std::string( (char *)rd->data, rd->len );
+   if( len > 4 )
+   {
+     ops::RawData *rd = FPBaseHandler::getRawData(value.data+4, len-4, true);
+     s = std::string( (char *)rd->data, rd->len );
    delete rd;
 	}
+   return s;
+ }
+
+ std::string ChunkScript::GetScript()
+ {
+   return (std::string)*this;
+ }
+
+ void ChunkScript::SetScript(std::string s)
+ {
+   ops::RawData *rd = new ops::RawData();
+   rd->len = s.length();
+   rd->data = s.begin();
+   ops::RawData *rp = rd->packLZO();
+   delete [] value.data;
+   value.data = new uint8_t[ sizeof(uint32_t) + rp->len ];
+   value.len = sizeof(uint32_t) + rp->len;
+   // size of packed data
+   *(uint32_t*)value.data = rp->len;
+   memcpy( value.data + sizeof(uint32_t), rp->data, rp->len );
+   len = value.len;
+   originalLen = len;
+   delete rp;
+   rd->len = 0;
+   rd->data = NULL;
+   delete rd;
+ }
+
+ std::string ChunkScript::RemoveComment( std::string line )
+ {
+    std::size_t pos = line.find( "'" );
+    if( pos != std::string::npos )
+    {
+      return line.substr( pos );
+    }
+ }
 
 
 	ChunkString::ChunkString(const ChunkDescriptor & initDescriptor) {
@@ -457,7 +505,7 @@ void FPBaseHandler::dumpChunks(std::ostream &outstream, ChunkGeneric * chunk, ui
 		break;
 	case T_CHUNK_SCRIPT :
 		if (showType) out << "script ";
-		out << chunk->descriptor.label << "=" << ((ChunkScript*)chunk)->script;
+		out << chunk->descriptor.label << "=" << ((ChunkScript*)chunk)->GetScript();
 		break;
 	case T_CHUNK_INT :
 		if (showType) out << "int ";
@@ -644,7 +692,7 @@ ChunkGeneric * FPBaseHandler::analyseChunk (ChunkChunkList ** result, const std:
      }
 		case T_CHUNK_SCRIPT :
      {
-     int len = *(int *) data + 4;
+     int len = *(int *) data + 4; // Anomalie
      ops::RawData *rd = getRawData(data, len, false);
 			chunkBlock = (ChunkGeneric *)new ChunkScript(len, originalChunk, *descriptor, *rd);
      delete rd;
@@ -1190,7 +1238,7 @@ ChunkGeneric * FPTHandler::flexLoad(std::string filepath, bool keepPinModelRaw) 
 
 
 #ifdef _WIN32
-bool FPTHandler::calcMAC( ChunkChunkList *pChunkListP, unsigned char *pszHashBufferP, unsigned long nBufferSizeP )
+bool FPTHandler::calcMAC( ChunkChunkList *pChunkListP, unsigned char *pHashBufferP, unsigned long nBufferSizeP )
 {
   // Reverse engineering 2013 by SK1
   HCRYPTPROV hProv;
@@ -1250,7 +1298,7 @@ bool FPTHandler::calcMAC( ChunkChunkList *pChunkListP, unsigned char *pszHashBuf
     return false;
 
   // Done!
-  CryptGetHashParam(hHash, HP_HASHVAL, pszHashBufferP, &dwHashSize, 0 );
+  CryptGetHashParam(hHash, HP_HASHVAL, pHashBufferP, &dwHashSize, 0 );
 
   if(hHash)
     CryptDestroyHash(hHash);

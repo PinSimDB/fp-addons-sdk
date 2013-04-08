@@ -233,6 +233,11 @@ public:
   std::string script;
   ChunkScript( const ChunkDescriptor & initDescriptor = CHUNK_SCRIPT_EMPTY );
   ChunkScript( uint32_t initOriginalLen, uint32_t initOriginalChunk, const ChunkDescriptor & initDescriptor, const ops::RawData & initValue );
+    ~ChunkScript();
+  operator std::string();
+  std::string GetScript();
+  void SetScript(std::string s);
+  std::string RemoveComment( std::string line );
   virtual void ShowXmlLikeTagName() { std::cout << "ChunkScript"; }
   virtual void ShowXmlLike() {
     ShowXmlLikeTagBegin();

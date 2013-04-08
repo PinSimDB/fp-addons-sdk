@@ -55,7 +55,7 @@ namespace fp
 		ops::fp::ChunkGeneric * getChunkByLabel(ops::fp::ChunkChunkList * parentList, std::string label);
 		ops::fp::ChunkChunkList * getChunksByLabel(ops::fp::ChunkChunkList * parentList, std::string label);
    static ops::RawData * getRawData(const uint8_t * data, uint32_t len, bool uncompress);
-		ops::RawData * compress(ops::RawData * data);
+		static ops::RawData * compress(ops::RawData * data);
 
 	protected:
 		const ChunkDescriptor * findChunkDescriptor(const std::vector<ChunkDescriptor> & chunkList, uint32_t chunk);
@@ -89,7 +89,7 @@ namespace fp
 		ChunkGeneric * flexLoad(std::string filepath, bool keepPinModelRaw = false);
 
 #ifdef _WIN32
-		bool calcMAC( ChunkChunkList *pChunkListP, unsigned char *pszHashP, unsigned long nBuffersizeP );
+		bool calcMAC( ChunkChunkList *pChunkListP, unsigned char *pHashBufferP, unsigned long nBuffersizeP );
 #endif
 
 	protected:
