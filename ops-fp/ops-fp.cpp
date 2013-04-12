@@ -206,7 +206,7 @@ unsigned int reverse_bytes( const unsigned int v )
  {
    ops::RawData *rd = new ops::RawData();
    rd->len = s.length();
-   rd->data = s.begin();
+   rd->data = (uint8_t *)s.c_str();
    ops::RawData *rp = rd->packLZO();
    delete [] value.data;
    value.data = new uint8_t[ sizeof(uint32_t) + rp->len ];
@@ -229,6 +229,7 @@ unsigned int reverse_bytes( const unsigned int v )
     {
       return line.substr( pos );
     }
+    return line; 
  }
 
 
@@ -974,7 +975,6 @@ ChunkGeneric * FPTHandler::flexLoad(std::string filepath, bool keepPinModelRaw) 
 
 		ops::RawData * rawData = reader->readAll(filename);
 		ChunkChunkList * chunks = new ChunkChunkList(CHUNK_TABLE_DATA);
-    ChunkGeneric* chunk;
 		analyseRawData(chunks, CHUNKS_TABLE, rawData);
 		delete rawData;
 		chunks->parent = globalChunks;
