@@ -286,7 +286,7 @@ static ChunkDescriptor CHUNKS_ELEMENT_3_ARRAY[] =
   ChunkDescriptor( 0x9600BED2, T_CHUNK_INT,    "state", -1 ),
   ChunkDescriptor( 0x95F3C9E3, T_CHUNK_INT,    "blink_interval", -1 ),
   ChunkDescriptor( 0x9600C2E3, T_CHUNK_STRING,  "blink_pattern", -1 ),
-  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT,    "unknown_1", -1 ),
+  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT, "object_appers_on", -1 ),
   ChunkDescriptor( 0x9EFEC3D9, T_CHUNK_INT,    "locked", -1 ),
   ChunkDescriptor( 0x9100C6E4, T_CHUNK_INT,    "layer", -1 ),
   ChunkDescriptor( 0xA7FDC4E0, T_CHUNK_GENERIC,  "end", -1 )
@@ -310,7 +310,7 @@ static ChunkDescriptor CHUNKS_ELEMENT_4_ARRAY[] =
   ChunkDescriptor( 0x9600BED2, T_CHUNK_INT,    "state", -1 ),
   ChunkDescriptor( 0x95F3C9E3, T_CHUNK_INT,    "blink_interval", -1 ),
   ChunkDescriptor( 0x9600C2E3, T_CHUNK_STRING,  "blink_pattern", -1 ),
-  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT,    "unknown_1", -1 ),
+  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT, "object_appers_on", -1 ),
   ChunkDescriptor( 0x95F3C2D2, T_CHUNK_CHUNKLIST, "shape_point", -1 ),
   ChunkDescriptor( 0x9BFCCFCF, T_CHUNK_VECTOR2D,  "position", -1 ),
   ChunkDescriptor( 0xA1EDC5D2, T_CHUNK_INT,    "smooth", -1 ),
@@ -550,7 +550,7 @@ static ChunkDescriptor CHUNKS_ELEMENT_17_ARRAY[] =
   ChunkDescriptor( 0x9BFCCFCF, T_CHUNK_VECTOR2D,  "position", -1 ),
   ChunkDescriptor( 0xA800C4E0, T_CHUNK_INT,    "enabled", -1 ),
   ChunkDescriptor( 0x97EDC4DC, T_CHUNK_INT,    "timer_interval", -1 ),
-  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT,    "unknown_1", -1 ),
+  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT, "object_appers_on", -1 ),
   ChunkDescriptor( 0x9EFEC3D9, T_CHUNK_INT,    "locked", -1 ),
   ChunkDescriptor( 0x9100C6E4, T_CHUNK_INT,    "layer", -1 ),
   ChunkDescriptor( 0xA7FDC4E0, T_CHUNK_GENERIC,  "end", -1 )
@@ -568,7 +568,7 @@ static ChunkDescriptor CHUNKS_ELEMENT_18_ARRAY[] =
   ChunkDescriptor( 0x95FDC9CE, T_CHUNK_INT,    "height", -1 ),
   ChunkDescriptor( 0x9C00C0D1, T_CHUNK_INT,    "transparency", -1 ),
   ChunkDescriptor( 0x97F5C3E2, T_CHUNK_COLOR,    "color", -1 ),
-  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT,    "unknown_1", -1 ),
+  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT, "object_appers_on", -1 ),
   ChunkDescriptor( 0x9EFEC3D9, T_CHUNK_INT,    "locked", -1 ),
   ChunkDescriptor( 0x9100C6E4, T_CHUNK_INT,    "layer", -1 ),
   ChunkDescriptor( 0xA7FDC4E0, T_CHUNK_GENERIC,  "end", -1 )
@@ -716,7 +716,7 @@ static ChunkDescriptor CHUNKS_ELEMENT_25_ARRAY[] =
   ChunkDescriptor( 0x9600BED2, T_CHUNK_INT,    "state", -1 ),
   ChunkDescriptor( 0x95F3C9E3, T_CHUNK_INT,    "blink_interval", -1 ),
   ChunkDescriptor( 0x9600C2E3, T_CHUNK_STRING,  "blink_pattern", -1 ),
-  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT,    "unknown_1", -1 ),
+  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT, "object_appers_on", -1 ),
   ChunkDescriptor( 0x9EFEC3D9, T_CHUNK_INT,    "locked", -1 ),
   ChunkDescriptor( 0x9100C6E4, T_CHUNK_INT,    "layer", -1 ),
   ChunkDescriptor( 0xA7FDC4E0, T_CHUNK_GENERIC,  "end", -1 )
@@ -743,7 +743,7 @@ static ChunkDescriptor CHUNKS_ELEMENT_26_ARRAY[] =
   ChunkDescriptor( 0x9600BED2, T_CHUNK_INT,    "state", -1 ),
   ChunkDescriptor( 0x95F3C9E3, T_CHUNK_INT,    "blink_interval", -1 ),
   ChunkDescriptor( 0x9600C2E3, T_CHUNK_STRING,  "blink_pattern", -1 ),
-  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT,    "unknown_1", -1 ),
+  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT, "object_appers_on", -1 ),
   ChunkDescriptor( 0x9EFEC3D9, T_CHUNK_INT,    "locked", -1 ),
   ChunkDescriptor( 0x9100C6E4, T_CHUNK_INT,    "layer", -1 ),
   ChunkDescriptor( 0xA7FDC4E0, T_CHUNK_GENERIC,  "end", -1 )
@@ -762,7 +762,7 @@ static ChunkDescriptor CHUNKS_ELEMENT_27_ARRAY[] =
   ChunkDescriptor( 0xA8EDC3D3, T_CHUNK_INT,    "rotation", -1 ),
   ChunkDescriptor( 0x96F5C5DC, T_CHUNK_STRING,  "image_list", -1 ),
   ChunkDescriptor( 0x95F3C9D0, T_CHUNK_INT,    "update_interval", -1 ),
-  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT,    "unknown_1", -1 ),
+  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT, "object_appers_on", -1 ),
   ChunkDescriptor( 0x9EFEC3D9, T_CHUNK_INT,    "locked", -1 ),
   ChunkDescriptor( 0x9100C6E4, T_CHUNK_INT,    "layer", -1 ),
   ChunkDescriptor( 0xA7FDC4E0, T_CHUNK_GENERIC,  "end", -1 )
@@ -788,7 +788,7 @@ static ChunkDescriptor CHUNKS_ELEMENT_29_ARRAY[] =
   ChunkDescriptor( 0x9600BED2, T_CHUNK_INT,    "state", -1 ),
   ChunkDescriptor( 0x95F3C9E3, T_CHUNK_INT,    "blink_interval", -1 ),
   ChunkDescriptor( 0x9600C2E3, T_CHUNK_STRING,  "blink_pattern", -1 ),
-  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT,    "unknown_1", -1 ),
+  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT, "object_appers_on", -1 ),
   ChunkDescriptor( 0x9EFEC3D9, T_CHUNK_INT,    "locked", -1 ),
   ChunkDescriptor( 0x9100C6E4, T_CHUNK_INT,    "layer", -1 ),
   ChunkDescriptor( 0xA7FDC4E0, T_CHUNK_GENERIC, "end", -1 )
@@ -867,7 +867,7 @@ static ChunkDescriptor CHUNKS_ELEMENT_34_ARRAY[] =
   ChunkDescriptor( 0xA1EECCDF, T_CHUNK_INT,    "flasher_blink", -1 ),
   ChunkDescriptor( 0x9BF8BDDF, T_CHUNK_INT,    "blink_interval", -1 ),
   ChunkDescriptor( 0x96EFBEDC, T_CHUNK_INT,    "include_translite_light", -1 ),
-  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT,    "unknown_3", -1 ),
+  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT, "object_appers_on", -1 ),
   ChunkDescriptor( 0x9EFEC3D9, T_CHUNK_INT,    "locked", -1 ),
   ChunkDescriptor( 0x9100C6E4, T_CHUNK_INT,    "layer", -1 ),
   ChunkDescriptor( 0xA7FDC4E0, T_CHUNK_GENERIC, "end", -1 )
@@ -889,7 +889,7 @@ static ChunkDescriptor CHUNKS_ELEMENT_37_ARRAY[] =
   ChunkDescriptor( 0x99EED0DF, T_CHUNK_INT,    "fast_blink_speed", -1 ),
   ChunkDescriptor( 0x90F5CEE3, T_CHUNK_INT,    "boredom_delay", -1 ),
   ChunkDescriptor( 0x9DF2CFD9, T_CHUNK_COLOR,    "lit_color", -1 ),
-  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT,    "unknown_1", -1 ),
+  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT, "object_appers_on", -1 ),
   ChunkDescriptor( 0x9EFEC3D9, T_CHUNK_INT,    "locked", -1 ),
   ChunkDescriptor( 0x9100C6E4, T_CHUNK_INT,    "layer", -1 ),
   ChunkDescriptor( 0xA7FDC4E0, T_CHUNK_GENERIC, "end", -1 )
@@ -911,7 +911,7 @@ static ChunkDescriptor CHUNKS_ELEMENT_38_ARRAY[] =
   ChunkDescriptor( 0x99EED0DF, T_CHUNK_INT,    "fast_blink_speed", -1 ),
   ChunkDescriptor( 0x90F5CEE3, T_CHUNK_INT,    "boredom_delay", -1 ),
   ChunkDescriptor( 0x9DF2CFD9, T_CHUNK_COLOR,    "lit_color", -1 ),
-  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT,    "unknown_1", -1 ),
+  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT, "object_appers_on", -1 ),
   ChunkDescriptor( 0x9EFEC3D9, T_CHUNK_INT,    "locked", -1 ),
   ChunkDescriptor( 0x9100C6E4, T_CHUNK_INT,    "layer", -1 ),
   ChunkDescriptor( 0xA7FDC4E0, T_CHUNK_GENERIC, "end", -1 )
@@ -929,7 +929,7 @@ static ChunkDescriptor CHUNKS_ELEMENT_39_ARRAY[] =
   ChunkDescriptor( 0xA2F8C6E4, T_CHUNK_INT,    "alignment", -1 ),
   ChunkDescriptor( 0x99EED0D2, T_CHUNK_INT,    "slow_blink_speed", -1 ),
   ChunkDescriptor( 0x99EED0DF, T_CHUNK_INT,    "fast_blink_speed", -1 ),
-  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT,    "unknown_1", -1 ),
+  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT, "object_appers_on", -1 ),
   ChunkDescriptor( 0x9EFEC3D9, T_CHUNK_INT,    "locked", -1 ),
   ChunkDescriptor( 0x9100C6E4, T_CHUNK_INT,    "layer", -1 ),
   ChunkDescriptor( 0xA7FDC4E0, T_CHUNK_GENERIC, "end", -1 )
@@ -947,7 +947,7 @@ static ChunkDescriptor CHUNKS_ELEMENT_40_ARRAY[] =
   ChunkDescriptor( 0xA2F8C6E4, T_CHUNK_INT,    "alignment", -1 ),
   ChunkDescriptor( 0x99EED0D2, T_CHUNK_INT,    "slow_blink_speed", -1 ),
   ChunkDescriptor( 0x99EED0DF, T_CHUNK_INT,    "fast_blink_speed", -1 ),
-  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT,    "unknown_1", -1 ),
+  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT, "object_appers_on", -1 ),
   ChunkDescriptor( 0x9EFEC3D9, T_CHUNK_INT,    "locked", -1 ),
   ChunkDescriptor( 0x9100C6E4, T_CHUNK_INT,    "layer", -1 ),
   ChunkDescriptor( 0xA7FDC4E0, T_CHUNK_GENERIC, "end", -1 )
@@ -983,7 +983,7 @@ static ChunkDescriptor CHUNKS_ELEMENT_44_ARRAY[] =
   ChunkDescriptor( 0x95FDC9CE, T_CHUNK_INT,    "width", -1 ),
   ChunkDescriptor( 0x96F5C5DC, T_CHUNK_STRING,  "image_list", -1 ),
   ChunkDescriptor( 0x95F3C9D0, T_CHUNK_INT,    "update_interval", -1 ),
-  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT,    "unknown_1", -1 ),
+  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT, "object_appers_on", -1 ),
   ChunkDescriptor( 0x9EFEC3D9, T_CHUNK_INT,    "locked", -1 ),
   ChunkDescriptor( 0x9100C6E4, T_CHUNK_INT,    "layer", -1 ),
   ChunkDescriptor( 0xA7FDC4E0, T_CHUNK_GENERIC,  "end", -1 )
@@ -1190,7 +1190,7 @@ static ChunkDescriptor CHUNKS_ELEMENT_57_ARRAY[] =
   ChunkDescriptor( 0x9600BED2, T_CHUNK_INT,    "state", -1 ),
   ChunkDescriptor( 0x95F3C9E3, T_CHUNK_INT,    "blink_interval", -1 ),
   ChunkDescriptor( 0x9600C2E3, T_CHUNK_STRING,  "blink_pattern", -1 ),
-  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT,    "unknown_1", -1 ),
+  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT, "object_appers_on", -1 ),
   ChunkDescriptor( 0x9EFEC3D9, T_CHUNK_INT,    "locked", -1 ),
   ChunkDescriptor( 0x9100C6E4, T_CHUNK_INT,    "layer", -1 ),
   ChunkDescriptor( 0xA7FDC4E0, T_CHUNK_GENERIC,  "end", -1 )
@@ -1237,7 +1237,7 @@ static ChunkDescriptor CHUNKS_ELEMENT_60_ARRAY[] =
   ChunkDescriptor( 0x9600BED2, T_CHUNK_INT,    "state", -1 ),
   ChunkDescriptor( 0x95F3C9E3, T_CHUNK_INT,    "blink_interval", -1 ),
   ChunkDescriptor( 0x9600C2E3, T_CHUNK_STRING,  "blink_pattern", -1 ),
-  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT,    "unknown_1", -1 ),
+  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT, "object_appers_on", -1 ),
   ChunkDescriptor( 0x9EFEC3D9, T_CHUNK_INT,    "locked", -1 ),
   ChunkDescriptor( 0x9100C6E4, T_CHUNK_INT,    "layer", -1 ),
   ChunkDescriptor( 0xA7FDC4E0, T_CHUNK_GENERIC,  "end", -1 )
@@ -1304,7 +1304,7 @@ static ChunkDescriptor CHUNKS_ELEMENT_64_ARRAY[] =
   ChunkDescriptor( 0xA2F8C6E4, T_CHUNK_INT,    "alignment", -1 ),
   ChunkDescriptor( 0x99EED0D2, T_CHUNK_INT,    "slow_blink_speed", -1 ),
   ChunkDescriptor( 0x99EED0DF, T_CHUNK_INT,    "fast_blink_speed", -1 ),
-  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT,    "unknown_1", -1 ),
+  ChunkDescriptor( 0xA6F2C6D3, T_CHUNK_INT, "object_appers_on", -1 ),
   ChunkDescriptor( 0x9EFEC3D9, T_CHUNK_INT,    "locked", -1 ),
   ChunkDescriptor( 0x9100C6E4, T_CHUNK_INT,    "layer", -1 ),
   ChunkDescriptor( 0xA7FDC4E0, T_CHUNK_GENERIC,  "end", -1 )
